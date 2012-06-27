@@ -1,0 +1,22 @@
+<phpunit
+    colors="true"
+    stopOnError="true"
+    stopOnFailure="true"
+	stopOnIncomplete="true"
+	stopOnSkipped="true"
+	strict="true">
+	<testsuites>
+	   <testsuite name="epiloger tests">
+	       <directory>../php/ehough/pulsar</directory>
+	       <file>PulsarClassLoaderTest.php</file>
+	   </testsuite>
+	</testsuites>
+	<logging>
+	   <log type="coverage-html" target="../../../target/coverage-report" yui="true" charset="UTF-8" highlight="true" />
+	</logging>
+	<filter>
+		<blacklist>
+		   <directory suffix=".php">../</directory>
+		</blacklist>
+	</filter>
+</phpunit>
