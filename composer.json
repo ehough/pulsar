@@ -10,5 +10,9 @@
             "email": "eric@ehough.com",
             "homepage": "http://ehough.com"
         }
-    ]
+    ],
+    "autoload": {
+    
+        "psr-0": { "": "src/" }
+    }
 }
