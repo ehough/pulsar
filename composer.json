@@ -1,9 +1,14 @@
 {
     "name": "ehough/pulsar",
+
     "description": "PSR-0 compliant class loader for PHP 5.",
+
     "keywords": [ "autoloader", "autoload", "psr-0" ],
+
     "homepage": "https://github.com/ehough/pulsar",
+
     "license": "GPL-3.0+",
+
     "authors": [
         {
             "name": "Eric Hough",
