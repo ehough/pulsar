@@ -43,9 +43,9 @@
  * THE SOFTWARE.
  */
 
-require_once dirname(__FILE__) . '/../../main/php/Php52CompatibleSymfonyUniversalClassLoader.php';
+require_once dirname(__FILE__) . '/../../main/php/SymfonyUniversalClassLoader.php';
 
-class ehough_pulsar_Php52CompatibleSymfonyUniversalClassLoaderTest extends PHPUnit_Framework_TestCase {
+class ehough_pulsar_SymfonyUniversalClassLoaderTest extends PHPUnit_Framework_TestCase {
 
     private $_sut;
 
@@ -53,7 +53,7 @@ class ehough_pulsar_Php52CompatibleSymfonyUniversalClassLoaderTest extends PHPUn
 
     public function setup()
     {
-        $this->_sut = new ehough_pulsar_Php52CompatibleSymfonyUniversalClassLoader();
+        $this->_sut = new ehough_pulsar_SymfonyUniversalClassLoader();
     }
 
     public static function setUpBeforeClass()

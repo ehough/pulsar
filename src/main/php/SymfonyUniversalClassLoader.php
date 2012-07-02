@@ -20,11 +20,8 @@
 */
 
 /**
- * This class is based heavily on both Composer's ClassLoader and Symfony's
- * UniversalClassLoader.
- *
- * https://github.com/composer/composer/blob/master/src/Composer/Autoload/ClassLoader.php
- * https://github.com/composer/composer/blob/master/LICENSE
+ * This class is nearly identical to the UniversalClassLoader from Symfony. The only differences are
+ * that it's compliant with PHP < 5.3 and there are a few code style changes.
  *
  * https://github.com/symfony/ClassLoader/blob/master/UniversalClassLoader.php
  * https://github.com/symfony/ClassLoader/blob/master/LICENSE
@@ -34,30 +31,6 @@
  * For Symfony...
  *
  * Copyright (c) 2004-2012 Fabien Potencier
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is furnished
- * to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
-
-/**
- * For Composer...
- *
- * Copyright (c) 2011 Nils Adermann, Jordi Boggiano
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -122,7 +95,7 @@
  * found before giving up.
  *
  */
-class ehough_pulsar_Php52CompatibleSymfonyUniversalClassLoader
+class ehough_pulsar_SymfonyUniversalClassLoader
 {
     private $_namespaces = array();
 
@@ -137,7 +110,7 @@ class ehough_pulsar_Php52CompatibleSymfonyUniversalClassLoader
      *
      * @return array A hash with namespaces as keys and directories as values
      */
-    public function getNamespaces()
+    public final function getNamespaces()
     {
         return $this->_namespaces;
     }
@@ -147,7 +120,7 @@ class ehough_pulsar_Php52CompatibleSymfonyUniversalClassLoader
      *
      * @return array A hash with class prefixes as keys and directories as values
      */
-    public function getPrefixes()
+    public final function getPrefixes()
     {
         return $this->_prefixes;
     }
@@ -157,7 +130,7 @@ class ehough_pulsar_Php52CompatibleSymfonyUniversalClassLoader
      *
      * @return array An array of directories
      */
-    public function getNamespaceFallbacks()
+    public final function getNamespaceFallbacks()
     {
         return $this->_namespaceFallbacks;
     }
@@ -167,7 +140,7 @@ class ehough_pulsar_Php52CompatibleSymfonyUniversalClassLoader
      *
      * @return array An array of directories
      */
-    public function getPrefixFallbacks()
+    public final function getPrefixFallbacks()
     {
         return $this->_prefixFallbacks;
     }
@@ -179,7 +152,7 @@ class ehough_pulsar_Php52CompatibleSymfonyUniversalClassLoader
      *
      * @api
      */
-    public function registerNamespaceFallbacks($dirs)
+    public final function registerNamespaceFallbacks($dirs)
     {
         if (is_array($dirs)) {
 
@@ -192,7 +165,7 @@ class ehough_pulsar_Php52CompatibleSymfonyUniversalClassLoader
      *
      * @param string $dir A directory
      */
-    public function registerNamespaceFallback($dir)
+    public final function registerNamespaceFallback($dir)
     {
         $this->_namespaceFallbacks[] = $dir;
     }
@@ -204,7 +177,7 @@ class ehough_pulsar_Php52CompatibleSymfonyUniversalClassLoader
      *
      * @api
      */
-    public function registerPrefixFallbacks($dirs)
+    public final function registerPrefixFallbacks($dirs)
     {
         if (is_array($dirs)) {
 
@@ -217,7 +190,7 @@ class ehough_pulsar_Php52CompatibleSymfonyUniversalClassLoader
      *
      * @param string $dir A directory
      */
-    public function registerPrefixFallback($dir)
+    public final function registerPrefixFallback($dir)
     {
         $this->_prefixFallbacks[] = $dir;
     }
@@ -229,7 +202,7 @@ class ehough_pulsar_Php52CompatibleSymfonyUniversalClassLoader
      *
      * @api
      */
-    public function registerNamespaces($namespaces)
+    public final function registerNamespaces($namespaces)
     {
         if (! is_array($namespaces)) {
 
@@ -250,7 +223,7 @@ class ehough_pulsar_Php52CompatibleSymfonyUniversalClassLoader
      *
      * @api
      */
-    public function registerNamespace($namespace, $paths)
+    public final function registerNamespace($namespace, $paths)
     {
         $this->_namespaces[$namespace] = $this->_safeToArray($paths);
     }
@@ -262,7 +235,7 @@ class ehough_pulsar_Php52CompatibleSymfonyUniversalClassLoader
      *
      * @api
      */
-    public function registerPrefixes($classes)
+    public final function registerPrefixes($classes)
     {
         if (! is_array($classes)) {
 
@@ -283,7 +256,7 @@ class ehough_pulsar_Php52CompatibleSymfonyUniversalClassLoader
      *
      * @api
      */
-    public function registerPrefix($prefix, $paths)
+    public final function registerPrefix($prefix, $paths)
     {
         $this->_prefixes[$prefix] = $this->_safeToArray($paths);
     }
@@ -295,8 +268,11 @@ class ehough_pulsar_Php52CompatibleSymfonyUniversalClassLoader
      *
      * @api
      */
-    public function register($prepend = false)
+    public final function register($prepend = false)
     {
+        //override point
+        $this->onBeforeRegister();
+
         // We need a special call to the autoloader for PHP 5.2, missing the
         // third parameter.
         if (version_compare(PHP_VERSION, '5.3.0', '<')) {
@@ -314,10 +290,11 @@ class ehough_pulsar_Php52CompatibleSymfonyUniversalClassLoader
      *
      * @param string $class The name of the class
      */
-    public function loadClass($class)
+    public final function loadClass($class)
     {
         if ($file = $this->_findFile($class)) {
 
+            /** @noinspection PhpIncludeInspection */
             require $file;
         }
     }
@@ -331,6 +308,11 @@ class ehough_pulsar_Php52CompatibleSymfonyUniversalClassLoader
      */
     private function _findFile($class)
     {
+        if ($file = $this->findFileDefiningClass($class)) {
+
+            return $file;
+        }
+
         if ('\\' == $class[0]) {
 
             $class = substr($class, 1);
@@ -345,30 +327,24 @@ class ehough_pulsar_Php52CompatibleSymfonyUniversalClassLoader
 
             foreach ($this->_namespaces as $ns => $dirs) {
 
-                if (0 !== strpos($namespace, $ns)) {
+                if (strpos($namespace, $ns) !== 0) {
 
                     continue;
                 }
 
-                foreach ($dirs as $dir) {
+                $file = $this->_tryToLoadFromLocations($dirs, $normalizedClass);
 
-                    $file = $dir . DIRECTORY_SEPARATOR . $normalizedClass;
-
-                    if (is_file($file)) {
-
-                        return $file;
-                    }
-                }
-            }
-
-            foreach ($this->_namespaceFallbacks as $dir) {
-
-                $file = $dir . DIRECTORY_SEPARATOR . $normalizedClass;
-
-                if (is_file($file)) {
+                if ($file !== null) {
 
                     return $file;
                 }
+            }
+
+            $file = $this->_tryToLoadFromLocations($this->_namespaceFallbacks, $normalizedClass);
+
+            if ($file !== null) {
+
+                return $file;
             }
 
         } else {
@@ -378,34 +354,75 @@ class ehough_pulsar_Php52CompatibleSymfonyUniversalClassLoader
 
             foreach ($this->_prefixes as $prefix => $dirs) {
 
-                if (0 !== strpos($class, $prefix)) {
+                if (strpos($class, $prefix) !== 0) {
 
                     continue;
                 }
 
-                foreach ($dirs as $dir) {
+                $file = $this->_tryToLoadFromLocations($dirs, $normalizedClass);
 
-                    $file = $dir . DIRECTORY_SEPARATOR . $normalizedClass;
-
-                    if (is_file($file)) {
-
-                        return $file;
-                    }
-                }
-            }
-
-            foreach ($this->_prefixFallbacks as $dir) {
-
-                $file = $dir . DIRECTORY_SEPARATOR . $normalizedClass;
-
-                if (is_file($file)) {
+                if ($file !== null) {
 
                     return $file;
                 }
             }
+
+            $file = $this->_tryToLoadFromLocations($this->_prefixFallbacks, $normalizedClass);
+
+            if ($file !== null) {
+
+                return $file;
+            }
         }
 
         return false;
+    }
+
+    /**
+     * Child classes can override this to perform "quick" lookups.
+     *
+     * @param string $class The class to lookup.
+     *
+     * @return string The file containing the definition for the class parameter, or null if not found.
+     *
+     */
+    protected function findFileDefiningClass($class)
+    {
+        //override point
+        return null;
+    }
+
+    /**
+     * Hook for actions to perform immediately before this classloader is registered with PHP.
+     *
+     * @return void
+     */
+    protected function onBeforeRegister()
+    {
+        //override point
+    }
+
+    /**
+     * Tries to load the class from a fallback location.
+     *
+     * @param array  $locations       An array of fallback locations.
+     * @param string $normalizedClass The class to load.
+     *
+     * @return null|string The location of the file defining the class. Null otherwise.
+     */
+    private function _tryToLoadFromLocations($locations, $normalizedClass)
+    {
+        foreach ($locations as $location) {
+
+            $file = $location . DIRECTORY_SEPARATOR . $normalizedClass;
+
+            if (is_file($file)) {
+
+                return $file;
+            }
+        }
+
+        return null;
     }
 
     private function _safeToArray($candidate)
