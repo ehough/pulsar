@@ -1,7 +1,7 @@
 {
     "name": "ehough/pulsar",
 
-    "description": "PSR-0 compliant class loader for PHP 5.",
+    "description": "Intelligent classloaders PHP 5",
 
     "keywords": [ "autoloader", "autoload", "psr-0" ],
 
