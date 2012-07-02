@@ -8,8 +8,7 @@
 	processIsolation="true">
 	<testsuites>
 	   <testsuite name="pulsar tests">
-	       <directory>../php/</directory>
-	       <file>PulsarClassLoaderTest.php</file>
+	       <directory>../php/ehough/pulsar</directory>
 	   </testsuite>
 	</testsuites>
 	<filter>

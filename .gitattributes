@@ -1,9 +1,5 @@
 src/test export-ignore
 .gitattributes export-ignore
 .gitignore export-ignore
-.project export-ignore
-.settings export-ignore
-.buildpath export-ignore
-.classpath export-ignore
 README* export-ignore
-composer.json export-ignore
+composer.* export-ignore

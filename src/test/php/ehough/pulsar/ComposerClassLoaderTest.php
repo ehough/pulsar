@@ -43,7 +43,7 @@
  * THE SOFTWARE.
  */
 
-require_once dirname(__FILE__) . '/../../main/php/ComposerClassLoader.php';
+require_once dirname(__FILE__) . '/../../../../main/php/ehough/pulsar/ComposerClassLoader.php';
 
 class ehough_pulsar_ComposerClassLoaderTest extends PHPUnit_Framework_TestCase {
 

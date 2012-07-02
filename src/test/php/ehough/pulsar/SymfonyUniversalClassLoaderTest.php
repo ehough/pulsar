@@ -43,7 +43,7 @@
  * THE SOFTWARE.
  */
 
-require_once dirname(__FILE__) . '/../../main/php/SymfonyUniversalClassLoader.php';
+require_once dirname(__FILE__) . '/../../../../main/php/ehough/pulsar/SymfonyUniversalClassLoader.php';
 
 class ehough_pulsar_SymfonyUniversalClassLoaderTest extends PHPUnit_Framework_TestCase {
 
@@ -58,7 +58,7 @@ class ehough_pulsar_SymfonyUniversalClassLoaderTest extends PHPUnit_Framework_Te
 
     public static function setUpBeforeClass()
     {
-        self::$_fixturesDir = __DIR__ . DIRECTORY_SEPARATOR . '../resources/fixtures';
+        self::$_fixturesDir = __DIR__ . DIRECTORY_SEPARATOR . '../../../resources/fixtures';
     }
 
     /**
@@ -191,32 +191,32 @@ class ehough_pulsar_SymfonyUniversalClassLoaderTest extends PHPUnit_Framework_Te
         return array(
             array(
                 array(
-                    'NamespaceCollision\\A' => __DIR__.DIRECTORY_SEPARATOR . '../resources/fixtures/alpha',
-                    'NamespaceCollision\\A\\B' => __DIR__.DIRECTORY_SEPARATOR . '../resources/fixtures/beta',
+                    'NamespaceCollision\\A' => __DIR__.DIRECTORY_SEPARATOR . '../../../resources/fixtures/alpha',
+                    'NamespaceCollision\\A\\B' => __DIR__.DIRECTORY_SEPARATOR . '../../../resources/fixtures/beta',
                 ),
                 'NamespaceCollision\A\Foo',
                 '->loadClass() loads NamespaceCollision\A\Foo from alpha.',
             ),
             array(
                 array(
-                    'NamespaceCollision\\A\\B' => __DIR__.DIRECTORY_SEPARATOR . '../resources/fixtures/beta',
-                    'NamespaceCollision\\A' => __DIR__.DIRECTORY_SEPARATOR . '../resources/fixtures/alpha',
+                    'NamespaceCollision\\A\\B' => __DIR__.DIRECTORY_SEPARATOR . '../../../resources/fixtures/beta',
+                    'NamespaceCollision\\A' => __DIR__.DIRECTORY_SEPARATOR . '../../../resources/fixtures/alpha',
                 ),
                 'NamespaceCollision\A\Bar',
                 '->loadClass() loads NamespaceCollision\A\Bar from alpha.',
             ),
             array(
                 array(
-                    'NamespaceCollision\\A' => __DIR__.DIRECTORY_SEPARATOR . '../resources/fixtures/alpha',
-                    'NamespaceCollision\\A\\B' => __DIR__.DIRECTORY_SEPARATOR . '../resources/fixtures/beta',
+                    'NamespaceCollision\\A' => __DIR__.DIRECTORY_SEPARATOR . '../../../resources/fixtures/alpha',
+                    'NamespaceCollision\\A\\B' => __DIR__.DIRECTORY_SEPARATOR . '../../../resources/fixtures/beta',
                 ),
                 'NamespaceCollision\A\B\Foo',
                 '->loadClass() loads NamespaceCollision\A\B\Foo from beta.',
             ),
             array(
                 array(
-                    'NamespaceCollision\\A\\B' => __DIR__.DIRECTORY_SEPARATOR . '../resources/fixtures/beta',
-                    'NamespaceCollision\\A' => __DIR__.DIRECTORY_SEPARATOR . '../resources/fixtures/alpha',
+                    'NamespaceCollision\\A\\B' => __DIR__.DIRECTORY_SEPARATOR . '../../../resources/fixtures/beta',
+                    'NamespaceCollision\\A' => __DIR__.DIRECTORY_SEPARATOR . '../../../resources/fixtures/alpha',
                 ),
                 'NamespaceCollision\A\B\Bar',
                 '->loadClass() loads NamespaceCollision\A\B\Bar from beta.',
@@ -241,32 +241,32 @@ class ehough_pulsar_SymfonyUniversalClassLoaderTest extends PHPUnit_Framework_Te
         return array(
             array(
                 array(
-                    'PrefixCollision_A_' => __DIR__.DIRECTORY_SEPARATOR . '../resources/fixtures/alpha',
-                    'PrefixCollision_A_B_' => __DIR__.DIRECTORY_SEPARATOR . '../resources/fixtures/beta',
+                    'PrefixCollision_A_' => __DIR__.DIRECTORY_SEPARATOR . '../../../resources/fixtures/alpha',
+                    'PrefixCollision_A_B_' => __DIR__.DIRECTORY_SEPARATOR . '../../../resources/fixtures/beta',
                 ),
                 'PrefixCollision_A_Foo',
                 '->loadClass() loads PrefixCollision_A_Foo from alpha.',
             ),
             array(
                 array(
-                    'PrefixCollision_A_B_' => __DIR__.DIRECTORY_SEPARATOR . '../resources/fixtures/beta',
-                    'PrefixCollision_A_' => __DIR__.DIRECTORY_SEPARATOR . '../resources/fixtures/alpha',
+                    'PrefixCollision_A_B_' => __DIR__.DIRECTORY_SEPARATOR . '../../../resources/fixtures/beta',
+                    'PrefixCollision_A_' => __DIR__.DIRECTORY_SEPARATOR . '../../../resources/fixtures/alpha',
                 ),
                 'PrefixCollision_A_Bar',
                 '->loadClass() loads PrefixCollision_A_Bar from alpha.',
             ),
             array(
                 array(
-                    'PrefixCollision_A_' => __DIR__.DIRECTORY_SEPARATOR . '../resources/fixtures/alpha',
-                    'PrefixCollision_A_B_' => __DIR__.DIRECTORY_SEPARATOR . '../resources/fixtures/beta',
+                    'PrefixCollision_A_' => __DIR__.DIRECTORY_SEPARATOR . '../../../resources/fixtures/alpha',
+                    'PrefixCollision_A_B_' => __DIR__.DIRECTORY_SEPARATOR . '../../../resources/fixtures/beta',
                 ),
                 'PrefixCollision_A_B_Foo',
                 '->loadClass() loads PrefixCollision_A_B_Foo from beta.',
             ),
             array(
                 array(
-                    'PrefixCollision_A_B_' => __DIR__.DIRECTORY_SEPARATOR . '../resources/fixtures/beta',
-                    'PrefixCollision_A_' => __DIR__.DIRECTORY_SEPARATOR . '../resources/fixtures/alpha',
+                    'PrefixCollision_A_B_' => __DIR__.DIRECTORY_SEPARATOR . '../../../resources/fixtures/beta',
+                    'PrefixCollision_A_' => __DIR__.DIRECTORY_SEPARATOR . '../../../resources/fixtures/alpha',
                 ),
                 'PrefixCollision_A_B_Bar',
                 '->loadClass() loads PrefixCollision_A_B_Bar from beta.',
