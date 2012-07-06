@@ -99,24 +99,6 @@ class ehough_pulsar_SymfonyUniversalClassLoaderTest extends PHPUnit_Framework_Te
         $this->assertTrue(true);
     }
 
-    public function testRegisterNamespacesNonArray()
-    {
-        $this->assertTrue($this->_sut->getNamespaces() === array());
-
-        $this->_sut->registerNamespaces('something');
-
-        $this->assertTrue($this->_sut->getNamespaces() === array());
-    }
-
-    public function testRegisterPrefixesNonArray()
-    {
-        $this->assertTrue($this->_sut->getPrefixes() === array());
-
-        $this->_sut->registerPrefixes('something');
-
-        $this->assertTrue($this->_sut->getPrefixes() === array());
-    }
-
     public function getLoadClassTests()
     {
         return array(

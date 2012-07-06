@@ -5,7 +5,7 @@
 	stopOnIncomplete="true"
 	stopOnSkipped="true"
 	strict="true"
-	processIsolation="true">
+	processIsolation="false">
 	<testsuites>
 	   <testsuite name="pulsar tests">
 	       <directory>../php/ehough/pulsar</directory>

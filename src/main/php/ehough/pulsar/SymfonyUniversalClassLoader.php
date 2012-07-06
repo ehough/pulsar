@@ -1,23 +1,23 @@
 <?php
 /**
-* Copyright 2012 Eric D. Hough (http://ehough.com)
-*
-* This file is part of pulsar (https://github.com/ehough/pulsar)
-*
-* pulsar is free software: you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
-* (at your option) any later version.
-*
-* pulsar is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU General Public License for more details.
-*
-* You should have received a copy of the GNU General Public License
-* along with pulsar.  If not, see <http://www.gnu.org/licenses/>.
-*
-*/
+ * Copyright 2012 Eric D. Hough (http://ehough.com)
+ *
+ * This file is part of pulsar (https://github.com/ehough/pulsar)
+ *
+ * pulsar is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * pulsar is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with pulsar.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 
 /**
  * This class is nearly identical to the UniversalClassLoader from Symfony. The only differences are
@@ -148,22 +148,21 @@ class ehough_pulsar_SymfonyUniversalClassLoader
     /**
      * Registers the directory to use as a fallback for namespaces.
      *
-     * @param array $dirs An array of directories
+     * @param array $dirs An array of directories.
      *
-     * @api
+     * @return void
      */
-    public final function registerNamespaceFallbacks($dirs)
+    public final function registerNamespaceFallbacks(array $dirs)
     {
-        if (is_array($dirs)) {
-
-            $this->_namespaceFallbacks = $dirs;
-        }
+        $this->_namespaceFallbacks = $dirs;
     }
 
     /**
      * Registers a directory to use as a fallback for namespaces.
      *
-     * @param string $dir A directory
+     * @param string $dir A directory.
+     *
+     * @return void
      */
     public final function registerNamespaceFallback($dir)
     {
@@ -173,22 +172,21 @@ class ehough_pulsar_SymfonyUniversalClassLoader
     /**
      * Registers directories to use as a fallback for class prefixes.
      *
-     * @param array $dirs An array of directories
+     * @param array $dirs An array of directories.
      *
-     * @api
+     * @return void
      */
-    public final function registerPrefixFallbacks($dirs)
+    public final function registerPrefixFallbacks(array $dirs)
     {
-        if (is_array($dirs)) {
-
-            $this->_prefixFallbacks = $dirs;
-        }
+        $this->_prefixFallbacks = $dirs;
     }
 
     /**
      * Registers a directory to use as a fallback for class prefixes.
      *
-     * @param string $dir A directory
+     * @param string $dir A directory.
+     *
+     * @return void
      */
     public final function registerPrefixFallback($dir)
     {
@@ -196,19 +194,14 @@ class ehough_pulsar_SymfonyUniversalClassLoader
     }
 
     /**
-     * Registers an array of namespaces
+     * Registers an array of namespaces.
      *
-     * @param array $namespaces An array of namespaces (namespaces as keys and locations as values)
+     * @param array $namespaces An array of namespaces (namespaces as keys and locations as values).
      *
-     * @api
+     * @return void
      */
-    public final function registerNamespaces($namespaces)
+    public final function registerNamespaces(array $namespaces)
     {
-        if (! is_array($namespaces)) {
-
-            return;
-        }
-
         foreach ($namespaces as $namespace => $locations) {
 
             $this->_namespaces[$namespace] = $this->_safeToArray($locations);
@@ -218,10 +211,10 @@ class ehough_pulsar_SymfonyUniversalClassLoader
     /**
      * Registers a namespace.
      *
-     * @param string       $namespace The namespace
-     * @param array|string $paths     The location(s) of the namespace
+     * @param string       $namespace The namespace.
+     * @param array|string $paths     The location(s) of the namespace.
      *
-     * @api
+     * @return void
      */
     public final function registerNamespace($namespace, $paths)
     {
@@ -231,17 +224,12 @@ class ehough_pulsar_SymfonyUniversalClassLoader
     /**
      * Registers an array of classes using the PEAR naming convention.
      *
-     * @param array $classes An array of classes (prefixes as keys and locations as values)
+     * @param array $classes An array of classes (prefixes as keys and locations as values).
      *
-     * @api
+     * @return void
      */
-    public final function registerPrefixes($classes)
+    public final function registerPrefixes(array $classes)
     {
-        if (! is_array($classes)) {
-
-            return;
-        }
-
         foreach ($classes as $prefix => $locations) {
 
             $this->_prefixes[$prefix] = $this->_safeToArray($locations);
@@ -251,10 +239,10 @@ class ehough_pulsar_SymfonyUniversalClassLoader
     /**
      * Registers a set of classes using the PEAR naming convention.
      *
-     * @param string       $prefix The classes prefix
-     * @param array|string $paths  The location(s) of the classes
+     * @param string       $prefix The classes prefix.
+     * @param array|string $paths  The location(s) of the classes.
      *
-     * @api
+     * @return void
      */
     public final function registerPrefix($prefix, $paths)
     {
@@ -264,9 +252,9 @@ class ehough_pulsar_SymfonyUniversalClassLoader
     /**
      * Registers this instance as an autoloader.
      *
-     * @param boolean $prepend Whether to prepend the autoloader or not
+     * @param boolean $prepend Whether to prepend the autoloader or not.
      *
-     * @api
+     * @return void
      */
     public final function register($prepend = false)
     {
@@ -288,11 +276,15 @@ class ehough_pulsar_SymfonyUniversalClassLoader
     /**
      * Loads the given class or interface.
      *
-     * @param string $class The name of the class
+     * @param string $class The name of the class.
+     *
+     * @return void
      */
     public final function loadClass($class)
     {
-        if ($file = $this->_findFile($class)) {
+        $file = $this->_findFile($class);
+
+        if ($file) {
 
             /** @noinspection PhpIncludeInspection */
             require $file;
@@ -302,13 +294,15 @@ class ehough_pulsar_SymfonyUniversalClassLoader
     /**
      * Finds the path to the file where the class is defined.
      *
-     * @param string $class The name of the class
+     * @param string $class The name of the class.
      *
      * @return string|null The path, if found
      */
     private function _findFile($class)
     {
-        if ($file = $this->findFileDefiningClass($class)) {
+        $file = $this->findFileDefiningClass($class);
+
+        if ($file !== null) {
 
             return $file;
         }
@@ -318,12 +312,15 @@ class ehough_pulsar_SymfonyUniversalClassLoader
             $class = substr($class, 1);
         }
 
-        if (false !== $pos = strrpos($class, '\\')) {
+        $pos = strrpos($class, '\\');
+
+        if ($pos !== false) {
 
             // namespaced class name
             $namespace       = substr($class, 0, $pos);
-            $className       = substr($class, $pos + 1);
-            $normalizedClass = str_replace('\\', DIRECTORY_SEPARATOR, $namespace) . DIRECTORY_SEPARATOR . str_replace('_', DIRECTORY_SEPARATOR, $className) . '.php';
+            $className       = substr($class, ($pos + 1));
+            $normalizedClass = str_replace('\\', DIRECTORY_SEPARATOR, $namespace) .
+                DIRECTORY_SEPARATOR . str_replace('_', DIRECTORY_SEPARATOR, $className) . '.php';
 
             foreach ($this->_namespaces as $ns => $dirs) {
 
@@ -384,7 +381,6 @@ class ehough_pulsar_SymfonyUniversalClassLoader
      * @param string $class The class to lookup.
      *
      * @return string The file containing the definition for the class parameter, or null if not found.
-     *
      */
     protected function findFileDefiningClass($class)
     {
@@ -410,7 +406,7 @@ class ehough_pulsar_SymfonyUniversalClassLoader
      *
      * @return null|string The location of the file defining the class. Null otherwise.
      */
-    private function _tryToLoadFromLocations($locations, $normalizedClass)
+    private function _tryToLoadFromLocations(array $locations, $normalizedClass)
     {
         foreach ($locations as $location) {
 
@@ -425,6 +421,13 @@ class ehough_pulsar_SymfonyUniversalClassLoader
         return null;
     }
 
+    /**
+     * Wraps non-array data into an array.
+     *
+     * @param mixed $candidate The data to conditionally wrap.
+     *
+     * @return array An array.
+     */
     private function _safeToArray($candidate)
     {
         if (is_array($candidate)) {
