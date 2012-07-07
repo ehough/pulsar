@@ -121,6 +121,11 @@ class ehough_pulsar_ComposerClassLoader extends ehough_pulsar_SymfonyUniversalCl
         return null;
     }
 
+    /**
+     * Hook for actions to perform immediately before this classloader is registered with PHP.
+     *
+     * @return void
+     */
     protected final function onBeforeRegister()
     {
         $this->_performComposerAutoload();
@@ -140,21 +145,22 @@ class ehough_pulsar_ComposerClassLoader extends ehough_pulsar_SymfonyUniversalCl
             return;
         }
 
+        /** @noinspection PhpIncludeInspection */
         $nameSpaceMap = include "$providedVendorDir/composer/autoload_namespaces.php";
 
         foreach ($nameSpaceMap as $nameSpace => $path) {
 
             if ($nameSpace) {
 
-                $this->registerNamespace($nameSpace, $path);
+                $this->registerDirectory($nameSpace, $path);
 
             } else {
 
-                $this->registerNamespaceFallback($path);
-                $this->registerPrefixFallback($path);
+                $this->registerFallbackDirectory($path);
             }
         }
 
+        /** @noinspection PhpIncludeInspection */
         $classMap = include "$providedVendorDir/composer/autoload_classmap.php";
 
         if ($classMap) {

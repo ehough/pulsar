@@ -97,42 +97,18 @@
  */
 class ehough_pulsar_SymfonyUniversalClassLoader
 {
-    private $_namespaces = array();
+    private $_registeredDirectories = array();
 
-    private $_prefixes = array();
-
-    private $_namespaceFallbacks = array();
-
-    private $_prefixFallbacks = array();
-
-    /**
-     * Gets the configured namespaces.
-     *
-     * @return array A hash with namespaces as keys and directories as values
-     */
-    public final function getNamespaces()
-    {
-        return $this->_namespaces;
-    }
+    private $_fallbackDirs = array();
 
     /**
      * Gets the configured class prefixes.
      *
      * @return array A hash with class prefixes as keys and directories as values
      */
-    public final function getPrefixes()
+    public final function getRegisteredDirectories()
     {
-        return $this->_prefixes;
-    }
-
-    /**
-     * Gets the directory(ies) to use as a fallback for namespaces.
-     *
-     * @return array An array of directories
-     */
-    public final function getNamespaceFallbacks()
-    {
-        return $this->_namespaceFallbacks;
+        return $this->_registeredDirectories;
     }
 
     /**
@@ -140,33 +116,9 @@ class ehough_pulsar_SymfonyUniversalClassLoader
      *
      * @return array An array of directories
      */
-    public final function getPrefixFallbacks()
+    public final function getFallbackDirectories()
     {
-        return $this->_prefixFallbacks;
-    }
-
-    /**
-     * Registers the directory to use as a fallback for namespaces.
-     *
-     * @param array $dirs An array of directories.
-     *
-     * @return void
-     */
-    public final function registerNamespaceFallbacks(array $dirs)
-    {
-        $this->_namespaceFallbacks = $dirs;
-    }
-
-    /**
-     * Registers a directory to use as a fallback for namespaces.
-     *
-     * @param string $dir A directory.
-     *
-     * @return void
-     */
-    public final function registerNamespaceFallback($dir)
-    {
-        $this->_namespaceFallbacks[] = $dir;
+        return $this->_fallbackDirs;
     }
 
     /**
@@ -176,9 +128,9 @@ class ehough_pulsar_SymfonyUniversalClassLoader
      *
      * @return void
      */
-    public final function registerPrefixFallbacks(array $dirs)
+    public final function registerFallbackDirectories(array $dirs)
     {
-        $this->_prefixFallbacks = $dirs;
+        $this->_fallbackDirs = array_merge($this->_fallbackDirs, $dirs);
     }
 
     /**
@@ -188,37 +140,9 @@ class ehough_pulsar_SymfonyUniversalClassLoader
      *
      * @return void
      */
-    public final function registerPrefixFallback($dir)
+    public final function registerFallbackDirectory($dir)
     {
-        $this->_prefixFallbacks[] = $dir;
-    }
-
-    /**
-     * Registers an array of namespaces.
-     *
-     * @param array $namespaces An array of namespaces (namespaces as keys and locations as values).
-     *
-     * @return void
-     */
-    public final function registerNamespaces(array $namespaces)
-    {
-        foreach ($namespaces as $namespace => $locations) {
-
-            $this->_namespaces[$namespace] = $this->_safeToArray($locations);
-        }
-    }
-
-    /**
-     * Registers a namespace.
-     *
-     * @param string       $namespace The namespace.
-     * @param array|string $paths     The location(s) of the namespace.
-     *
-     * @return void
-     */
-    public final function registerNamespace($namespace, $paths)
-    {
-        $this->_namespaces[$namespace] = $this->_safeToArray($paths);
+        $this->_fallbackDirs[] = $dir;
     }
 
     /**
@@ -228,11 +152,11 @@ class ehough_pulsar_SymfonyUniversalClassLoader
      *
      * @return void
      */
-    public final function registerPrefixes(array $classes)
+    public final function registerDirectories(array $classes)
     {
         foreach ($classes as $prefix => $locations) {
 
-            $this->_prefixes[$prefix] = $this->_safeToArray($locations);
+            $this->_registeredDirectories[$prefix] = $this->_safeToArray($locations);
         }
     }
 
@@ -244,9 +168,9 @@ class ehough_pulsar_SymfonyUniversalClassLoader
      *
      * @return void
      */
-    public final function registerPrefix($prefix, $paths)
+    public final function registerDirectory($prefix, $paths)
     {
-        $this->_prefixes[$prefix] = $this->_safeToArray($paths);
+        $this->_registeredDirectories[$prefix] = $this->_safeToArray($paths);
     }
 
     /**
@@ -317,59 +241,39 @@ class ehough_pulsar_SymfonyUniversalClassLoader
         if ($pos !== false) {
 
             // namespaced class name
-            $namespace       = substr($class, 0, $pos);
-            $className       = substr($class, ($pos + 1));
-            $normalizedClass = str_replace('\\', DIRECTORY_SEPARATOR, $namespace) .
-                DIRECTORY_SEPARATOR . str_replace('_', DIRECTORY_SEPARATOR, $className) . '.php';
-
-            foreach ($this->_namespaces as $ns => $dirs) {
-
-                if (strpos($namespace, $ns) !== 0) {
-
-                    continue;
-                }
-
-                $file = $this->_tryToLoadFromLocations($dirs, $normalizedClass);
-
-                if ($file !== null) {
-
-                    return $file;
-                }
-            }
-
-            $file = $this->_tryToLoadFromLocations($this->_namespaceFallbacks, $normalizedClass);
-
-            if ($file !== null) {
-
-                return $file;
-            }
+            $namespace = substr($class, 0, $pos);
+            $className = substr($class, ($pos + 1));
+            $classPath = str_replace('\\', DIRECTORY_SEPARATOR, $namespace) . DIRECTORY_SEPARATOR;
 
         } else {
 
             // PEAR-like class name
-            $normalizedClass = str_replace('_', DIRECTORY_SEPARATOR, $class) . '.php';
+            $classPath = null;
+            $className = $class;
+        }
 
-            foreach ($this->_prefixes as $prefix => $dirs) {
+        $classPath .= str_replace('_', DIRECTORY_SEPARATOR, $className) . '.php';
 
-                if (strpos($class, $prefix) !== 0) {
+        foreach ($this->_registeredDirectories as $prefix => $dirs) {
 
-                    continue;
-                }
+            if (strpos($class, $prefix) !== 0) {
 
-                $file = $this->_tryToLoadFromLocations($dirs, $normalizedClass);
-
-                if ($file !== null) {
-
-                    return $file;
-                }
+                continue;
             }
 
-            $file = $this->_tryToLoadFromLocations($this->_prefixFallbacks, $normalizedClass);
+            $file = $this->_tryToLoadFromLocations($dirs, $classPath);
 
             if ($file !== null) {
 
                 return $file;
             }
+        }
+
+        $file = $this->_tryToLoadFromLocations($this->_fallbackDirs, $classPath);
+
+        if ($file !== null) {
+
+            return $file;
         }
 
         return false;

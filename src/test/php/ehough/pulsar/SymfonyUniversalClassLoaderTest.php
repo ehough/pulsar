@@ -66,17 +66,17 @@ class ehough_pulsar_SymfonyUniversalClassLoaderTest extends PHPUnit_Framework_Te
      */
     public function testLoadClass($className, $testClassName, $message)
     {
-        $this->assertTrue($this->_sut->getNamespaces() === array());
+        $this->assertTrue($this->_sut->getRegisteredDirectories() === array());
 
-        $this->_sut->registerNamespace('Namespaced', self::$_fixturesDir);
+        $this->_sut->registerDirectory('Namespaced', self::$_fixturesDir);
 
-        $this->assertTrue($this->_sut->getNamespaces() === array('Namespaced' => array(self::$_fixturesDir)));
+        $this->assertTrue($this->_sut->getRegisteredDirectories() === array('Namespaced' => array(self::$_fixturesDir)));
 
-        $this->assertTrue($this->_sut->getPrefixes() === array());
+        $this->_sut->registerDirectory('Pearlike_', self::$_fixturesDir);
 
-        $this->_sut->registerPrefix('Pearlike_', self::$_fixturesDir);
-
-        $this->assertTrue($this->_sut->getPrefixes() === array('Pearlike_' => array(self::$_fixturesDir)));
+        $this->assertTrue($this->_sut->getRegisteredDirectories() === array(
+            'Namespaced' => array(self::$_fixturesDir),
+            'Pearlike_' => array(self::$_fixturesDir)));
 
         $this->_sut->loadClass($testClassName);
 
@@ -88,9 +88,9 @@ class ehough_pulsar_SymfonyUniversalClassLoaderTest extends PHPUnit_Framework_Te
      */
     public function testRegister($className, $testClassName, $message)
     {
-        $this->_sut->registerNamespace('Namespaced', self::$_fixturesDir);
+        $this->_sut->registerDirectory('Namespaced', self::$_fixturesDir);
 
-        $this->_sut->registerPrefix('Pearlike_', self::$_fixturesDir);
+        $this->_sut->registerDirectory('Pearlike_', self::$_fixturesDir);
 
         $this->_sut->register();
 
@@ -115,13 +115,13 @@ class ehough_pulsar_SymfonyUniversalClassLoaderTest extends PHPUnit_Framework_Te
      */
     public function testLoadClassFromFallback($className, $testClassName, $message)
     {
-        $this->_sut->registerNamespace('Namespaced', self::$_fixturesDir);
+        $this->_sut->registerDirectory('Namespaced', self::$_fixturesDir);
 
-        $this->_sut->registerPrefix('Pearlike_', self::$_fixturesDir);
+        $this->_sut->registerDirectory('Pearlike_', self::$_fixturesDir);
 
-        $this->_sut->registerNamespaceFallbacks(array(self::$_fixturesDir . '/fallback'));
+        $this->_sut->registerFallbackDirectories(array(self::$_fixturesDir . '/fallback'));
 
-        $this->_sut->registerPrefixFallbacks(array(self::$_fixturesDir . '/fallback'));
+        $this->_sut->registerFallbackDirectories(array(self::$_fixturesDir . '/fallback'));
 
         $this->_sut->loadClass($testClassName);
 
@@ -142,17 +142,17 @@ class ehough_pulsar_SymfonyUniversalClassLoaderTest extends PHPUnit_Framework_Te
     public function testRegisterPrefixFallback()
     {
 
-        $this->_sut->registerPrefixFallback(self::$_fixturesDir . '/fallback');
+        $this->_sut->registerFallbackDirectory(self::$_fixturesDir . '/fallback');
 
-        $this->assertEquals(array(self::$_fixturesDir . '/fallback'), $this->_sut->getPrefixFallbacks());
+        $this->assertEquals(array(self::$_fixturesDir . '/fallback'), $this->_sut->getFallbackDirectories());
     }
 
     public function testRegisterNamespaceFallback()
     {
 
-        $this->_sut->registerNamespaceFallback(self::$_fixturesDir . '/Namespaced/fallback');
+        $this->_sut->registerFallbackDirectory(self::$_fixturesDir . '/Namespaced/fallback');
 
-        $this->assertEquals(array(self::$_fixturesDir . '/Namespaced/fallback'), $this->_sut->getNamespaceFallbacks());
+        $this->assertEquals(array(self::$_fixturesDir . '/Namespaced/fallback'), $this->_sut->getFallbackDirectories());
     }
 
     /**
@@ -161,7 +161,7 @@ class ehough_pulsar_SymfonyUniversalClassLoaderTest extends PHPUnit_Framework_Te
     public function testLoadClassNamespaceCollision($namespaces, $className, $message)
     {
 
-        $this->_sut->registerNamespaces($namespaces);
+        $this->_sut->registerDirectories($namespaces);
 
         $this->_sut->loadClass($className);
 
@@ -211,7 +211,7 @@ class ehough_pulsar_SymfonyUniversalClassLoaderTest extends PHPUnit_Framework_Te
      */
     public function testLoadClassPrefixCollision($prefixes, $className, $message)
     {
-        $this->_sut->registerPrefixes($prefixes);
+        $this->_sut->registerDirectories($prefixes);
 
         $this->_sut->loadClass($className);
 
