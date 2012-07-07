@@ -1,4 +1,4 @@
-vendor
+/vendor
 target
 .idea
 composer.lock

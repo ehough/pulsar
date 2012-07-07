@@ -54,14 +54,31 @@
 
 class_exists('ehough_pulsar_SymfonyUniversalClassLoader') || require 'SymfonyUniversalClassLoader.php';
 
+/**
+ * Performs some Composer-specific classloading functionality.
+ */
 class ehough_pulsar_ComposerClassLoader extends ehough_pulsar_SymfonyUniversalClassLoader
 {
     private $_vendorDir;
 
     private $_classMap = array();
 
+    /**
+     * Constructor.
+     *
+     * @param string $vendorDir The absolute path of Composer's "vendor" directory.
+     *
+     * @throws InvalidArgumentException If the given vendor directory isn't correct.
+     */
     public function __construct($vendorDir)
     {
+        if (!is_dir($vendorDir) || basename($vendorDir) !== 'vendor') {
+
+            throw new InvalidArgumentException(
+                "$vendorDir does not appear to be a valid Composer \"vendor\" directory"
+            );
+        }
+
         $this->_vendorDir = $vendorDir;
     }
 
@@ -81,18 +98,19 @@ class ehough_pulsar_ComposerClassLoader extends ehough_pulsar_SymfonyUniversalCl
      * @param array $classMap An associative array of classes to their locations.
      *
      * @return void
-     *
      */
-    public final function addToClassMap($classMap)
+    public final function addToClassMap(array $classMap)
     {
-        if (! is_array($classMap)) {
-
-            return;
-        }
-
         $this->_classMap = array_merge($this->_classMap, $classMap);
     }
 
+    /**
+     * Try to perform a "quick lookup" for the file containing the given class.
+     *
+     * @param string $class The class name to look up.
+     *
+     * @return null|string Null if the class can't be found, otherwise the absolute path of the file.
+     */
     protected final function findFileDefiningClass($class)
     {
         if (isset($this->_classMap[$class])) {
@@ -103,11 +121,21 @@ class ehough_pulsar_ComposerClassLoader extends ehough_pulsar_SymfonyUniversalCl
         return null;
     }
 
+    /**
+     * Hook for actions to perform immediately before this classloader is registered with PHP.
+     *
+     * @return void
+     */
     protected final function onBeforeRegister()
     {
         $this->_performComposerAutoload();
     }
 
+    /**
+     * Perform Composer's autoloading.
+     *
+     * @return void
+     */
     private function _performComposerAutoload()
     {
         $providedVendorDir = $this->_vendorDir;
@@ -117,21 +145,22 @@ class ehough_pulsar_ComposerClassLoader extends ehough_pulsar_SymfonyUniversalCl
             return;
         }
 
+        /** @noinspection PhpIncludeInspection */
         $nameSpaceMap = include "$providedVendorDir/composer/autoload_namespaces.php";
 
         foreach ($nameSpaceMap as $nameSpace => $path) {
 
             if ($nameSpace) {
 
-                $this->registerNamespace($nameSpace, $path);
+                $this->registerDirectory($nameSpace, $path);
 
             } else {
 
-                $this->registerNamespaceFallback($path);
-                $this->registerPrefixFallback($path);
+                $this->registerFallbackDirectory($path);
             }
         }
 
+        /** @noinspection PhpIncludeInspection */
         $classMap = include "$providedVendorDir/composer/autoload_classmap.php";
 
         if ($classMap) {
