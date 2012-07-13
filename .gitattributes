@@ -3,3 +3,4 @@ src/test export-ignore
 .gitignore export-ignore
 README* export-ignore
 composer.* export-ignore
+.travis.yml
