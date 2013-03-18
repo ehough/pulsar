@@ -5,4 +5,4 @@ php:
 before_script:
   - wget http://getcomposer.org/composer.phar
   - php composer.phar install --dev
-script: "phpunit -c src/test/resources/phpunit.xml"
+script: "phpunit -c src/test/resources/phpunit.xml.dist"
