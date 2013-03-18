@@ -9,22 +9,17 @@
          processIsolation="false"
          stopOnFailure="false"
          syntaxCheck="false"
-         bootstrap="vendor/autoload.php"
+         bootstrap="../../../vendor/autoload.php"
 >
     <testsuites>
-        <testsuite name="Symfony ClassLoader Component Test Suite">
-            <directory>./Tests/</directory>
+        <testsuite name="pulsar Test Suite">
+            <directory>../php/ehough/pulsar</directory>
         </testsuite>
     </testsuites>
 
     <filter>
         <whitelist>
-            <directory>./</directory>
-            <exclude>
-                <directory>./Resources</directory>
-                <directory>./Tests</directory>
-                <directory>./vendor</directory>
-            </exclude>
+            <directory suffix=".php">../../main/php</directory>
         </whitelist>
     </filter>
 </phpunit>

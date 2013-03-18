@@ -316,7 +316,7 @@ class ehough_pulsar_UniversalClassLoader
             }
         }
 
-        if ($this->useIncludePath && $file = stream_resolve_include_path($normalizedClass)) {
+        if (function_exists('stream_resolve_include_path') && $this->useIncludePath && $file = stream_resolve_include_path($normalizedClass)) {
             return $file;
         }
     }
