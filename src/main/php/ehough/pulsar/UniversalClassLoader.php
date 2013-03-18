@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Component\ClassLoader;
+//namespace Symfony\Component\ClassLoader;
 
 /**
  * UniversalClassLoader implements a "universal" autoloader for PHP 5.3.
@@ -58,7 +58,7 @@ namespace Symfony\Component\ClassLoader;
  *
  * @api
  */
-class UniversalClassLoader
+class ehough_pulsar_UniversalClassLoader
 {
     private $namespaces = array();
     private $prefixes = array();

@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Component\ClassLoader;
+//namespace Symfony\Component\ClassLoader;
 
 /**
  * ApcUniversalClassLoader implements a "universal" autoloader cached in APC for PHP 5.3.
@@ -60,7 +60,7 @@ namespace Symfony\Component\ClassLoader;
  *
  * @api
  */
-class ApcUniversalClassLoader extends UniversalClassLoader
+class ehough_pulsar_ApcUniversalClassLoader extends ehough_pulsar_UniversalClassLoader
 {
     private $prefix;
 
@@ -76,7 +76,7 @@ class ApcUniversalClassLoader extends UniversalClassLoader
     public function __construct($prefix)
     {
         if (!extension_loaded('apc')) {
-            throw new \RuntimeException('Unable to use ApcUniversalClassLoader as APC is not enabled.');
+            throw new RuntimeException('Unable to use ApcUniversalClassLoader as APC is not enabled.');
         }
 
         $this->prefix = $prefix;

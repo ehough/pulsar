@@ -9,18 +9,18 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Component\ClassLoader\Tests;
+//namespace Symfony\Component\ClassLoader\Tests;
 
-use Symfony\Component\ClassLoader\UniversalClassLoader;
+//use Symfony\Component\ClassLoader\UniversalClassLoader;
 
-class UniversalClassLoaderTest extends \PHPUnit_Framework_TestCase
+class ehough_pulsar_UniversalClassLoaderTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @dataProvider getLoadClassTests
      */
     public function testLoadClass($className, $testClassName, $message)
     {
-        $loader = new UniversalClassLoader();
+        $loader = new ehough_pulsar_UniversalClassLoader();
         $loader->registerNamespace('Namespaced', __DIR__.DIRECTORY_SEPARATOR.'Fixtures');
         $loader->registerPrefix('Pearlike_', __DIR__.DIRECTORY_SEPARATOR.'Fixtures');
         $this->assertTrue($loader->loadClass($testClassName));
@@ -39,7 +39,7 @@ class UniversalClassLoaderTest extends \PHPUnit_Framework_TestCase
 
     public function testUseIncludePath()
     {
-        $loader = new UniversalClassLoader();
+        $loader = new ehough_pulsar_UniversalClassLoader();
         $this->assertFalse($loader->getUseIncludePath());
 
         $this->assertNull($loader->findFile('Foo'));
@@ -58,7 +58,7 @@ class UniversalClassLoaderTest extends \PHPUnit_Framework_TestCase
 
     public function testGetNamespaces()
     {
-        $loader = new UniversalClassLoader();
+        $loader = new ehough_pulsar_UniversalClassLoader();
         $loader->registerNamespace('Foo', __DIR__.DIRECTORY_SEPARATOR.'Fixtures');
         $loader->registerNamespace('Bar', __DIR__.DIRECTORY_SEPARATOR.'Fixtures');
         $loader->registerNamespace('Bas', __DIR__.DIRECTORY_SEPARATOR.'Fixtures');
@@ -71,7 +71,7 @@ class UniversalClassLoaderTest extends \PHPUnit_Framework_TestCase
 
     public function testGetPrefixes()
     {
-        $loader = new UniversalClassLoader();
+        $loader = new ehough_pulsar_UniversalClassLoader();
         $loader->registerPrefix('Foo', __DIR__.DIRECTORY_SEPARATOR.'Fixtures');
         $loader->registerPrefix('Bar', __DIR__.DIRECTORY_SEPARATOR.'Fixtures');
         $loader->registerPrefix('Bas', __DIR__.DIRECTORY_SEPARATOR.'Fixtures');
@@ -87,7 +87,7 @@ class UniversalClassLoaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testLoadClassFromFallback($className, $testClassName, $message)
     {
-        $loader = new UniversalClassLoader();
+        $loader = new ehough_pulsar_UniversalClassLoader();
         $loader->registerNamespace('Namespaced', __DIR__.DIRECTORY_SEPARATOR.'Fixtures');
         $loader->registerPrefix('Pearlike_', __DIR__.DIRECTORY_SEPARATOR.'Fixtures');
         $loader->registerNamespaceFallbacks(array(__DIR__.DIRECTORY_SEPARATOR.'Fixtures/fallback'));
@@ -108,14 +108,14 @@ class UniversalClassLoaderTest extends \PHPUnit_Framework_TestCase
 
     public function testRegisterPrefixFallback()
     {
-        $loader = new UniversalClassLoader();
+        $loader = new ehough_pulsar_UniversalClassLoader();
         $loader->registerPrefixFallback(__DIR__.DIRECTORY_SEPARATOR.'Fixtures/fallback');
         $this->assertEquals(array(__DIR__.DIRECTORY_SEPARATOR.'Fixtures/fallback'), $loader->getPrefixFallbacks());
     }
 
     public function testRegisterNamespaceFallback()
     {
-        $loader = new UniversalClassLoader();
+        $loader = new ehough_pulsar_UniversalClassLoader();
         $loader->registerNamespaceFallback(__DIR__.DIRECTORY_SEPARATOR.'Fixtures/Namespaced/fallback');
         $this->assertEquals(array(__DIR__.DIRECTORY_SEPARATOR.'Fixtures/Namespaced/fallback'), $loader->getNamespaceFallbacks());
     }
@@ -125,7 +125,7 @@ class UniversalClassLoaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testLoadClassNamespaceCollision($namespaces, $className, $message)
     {
-        $loader = new UniversalClassLoader();
+        $loader = new ehough_pulsar_UniversalClassLoader();
         $loader->registerNamespaces($namespaces);
 
         $this->assertTrue($loader->loadClass($className));
@@ -175,7 +175,7 @@ class UniversalClassLoaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testLoadClassPrefixCollision($prefixes, $className, $message)
     {
-        $loader = new UniversalClassLoader();
+        $loader = new ehough_pulsar_UniversalClassLoader();
         $loader->registerPrefixes($prefixes);
 
         $this->assertTrue($loader->loadClass($className));

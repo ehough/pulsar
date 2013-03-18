@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Component\ClassLoader;
+//namespace Symfony\Component\ClassLoader;
 
 /**
  * ApcClassLoader implements a wrapping autoloader cached in APC for PHP 5.3.
@@ -39,7 +39,7 @@ namespace Symfony\Component\ClassLoader;
  *
  * @api
  */
-class ApcClassLoader
+class ehough_pulsar_ApcClassLoader
 {
     private $prefix;
 
@@ -57,19 +57,19 @@ class ApcClassLoader
      * @param string $prefix      The APC namespace prefix to use.
      * @param object $decorated   A class loader object that implements the findFile() method.
      *
-     * @throws \RuntimeException
-     * @throws \InvalidArgumentException
+     * @throws RuntimeException
+     * @throws InvalidArgumentException
      *
      * @api
      */
     public function __construct($prefix, $decorated)
     {
         if (!extension_loaded('apc')) {
-            throw new \RuntimeException('Unable to use ApcClassLoader as APC is not enabled.');
+            throw new RuntimeException('Unable to use ApcClassLoader as APC is not enabled.');
         }
 
         if (!method_exists($decorated, 'findFile')) {
-            throw new \InvalidArgumentException('The class finder must implement a "findFile" method.');
+            throw new InvalidArgumentException('The class finder must implement a "findFile" method.');
         }
 
         $this->prefix = $prefix;
