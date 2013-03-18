@@ -9,14 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Component\ClassLoader;
+//namespace Symfony\Component\ClassLoader;
 
 /**
  * ClassCollectionLoader.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class ClassCollectionLoader
+class ehough_pulsar_ClassCollectionLoader
 {
     private static $loaded;
     private static $seen;
@@ -32,7 +32,7 @@ class ClassCollectionLoader
      * @param Boolean $adaptive   Whether to remove already declared classes or not
      * @param string  $extension  File extension of the resulting file
      *
-     * @throws \InvalidArgumentException When class can't be loaded
+     * @throws InvalidArgumentException When class can't be loaded
      */
     public static function load($classes, $cacheDir, $name, $autoReload, $adaptive = false, $extension = '.php')
     {
@@ -224,7 +224,7 @@ class ClassCollectionLoader
      * @param string $file    Filename
      * @param string $content Temporary file content
      *
-     * @throws \RuntimeException when a cache file cannot be written
+     * @throws RuntimeException when a cache file cannot be written
      */
     private static function writeCacheFile($file, $content)
     {
@@ -235,7 +235,7 @@ class ClassCollectionLoader
             return;
         }
 
-        throw new \RuntimeException(sprintf('Failed to write cache file "%s".', $file));
+        throw new RuntimeException(sprintf('Failed to write cache file "%s".', $file));
     }
 
     /**
@@ -243,9 +243,9 @@ class ClassCollectionLoader
      *
      * @param array $classes
      *
-     * @return \ReflectionClass[] An array of sorted \ReflectionClass instances (dependencies added if needed)
+     * @return ReflectionClass[] An array of sorted ReflectionClass instances (dependencies added if needed)
      *
-     * @throws \InvalidArgumentException When a class can't be loaded
+     * @throws InvalidArgumentException When a class can't be loaded
      */
     private static function getOrderedClasses(array $classes)
     {
@@ -253,9 +253,9 @@ class ClassCollectionLoader
         self::$seen = array();
         foreach ($classes as $class) {
             try {
-                $reflectionClass = new \ReflectionClass($class);
-            } catch (\ReflectionException $e) {
-                throw new \InvalidArgumentException(sprintf('Unable to load class "%s"', $class));
+                $reflectionClass = new ReflectionClass($class);
+            } catch (ReflectionException $e) {
+                throw new InvalidArgumentException(sprintf('Unable to load class "%s"', $class));
             }
 
             $map = array_merge($map, self::getClassHierarchy($reflectionClass));
@@ -264,7 +264,7 @@ class ClassCollectionLoader
         return $map;
     }
 
-    private static function getClassHierarchy(\ReflectionClass $class)
+    private static function getClassHierarchy(ReflectionClass $class)
     {
         if (isset(self::$seen[$class->getName()])) {
             return array();
@@ -295,7 +295,7 @@ class ClassCollectionLoader
         return array_merge(self::getInterfaces($class), $traits, $classes);
     }
 
-    private static function getInterfaces(\ReflectionClass $class)
+    private static function getInterfaces(ReflectionClass $class)
     {
         $classes = array();
 
@@ -312,7 +312,7 @@ class ClassCollectionLoader
         return $classes;
     }
 
-    private static function computeTraitDeps(\ReflectionClass $class)
+    private static function computeTraitDeps(ReflectionClass $class)
     {
         $traits = $class->getTraits();
         $deps = array($class->getName() => $traits);
@@ -335,21 +335,21 @@ class ClassCollectionLoader
      * occur with PHP traits.
      *
      * @param array             $tree       The dependency tree
-     * @param \ReflectionClass  $node       The node
-     * @param \ArrayObject      $resolved   An array of already resolved dependencies
-     * @param \ArrayObject      $unresolved An array of dependencies to be resolved
+     * @param ReflectionClass  $node       The node
+     * @param ArrayObject      $resolved   An array of already resolved dependencies
+     * @param ArrayObject      $unresolved An array of dependencies to be resolved
      *
-     * @return \ArrayObject The dependencies for the given node
+     * @return ArrayObject The dependencies for the given node
      *
-     * @throws \RuntimeException if a circular dependency is detected
+     * @throws RuntimeException if a circular dependency is detected
      */
-    private static function resolveDependencies(array $tree, $node, \ArrayObject $resolved = null, \ArrayObject $unresolved = null)
+    private static function resolveDependencies(array $tree, $node, ArrayObject $resolved = null, ArrayObject $unresolved = null)
     {
         if (null === $resolved) {
-            $resolved = new \ArrayObject();
+            $resolved = new ArrayObject();
         }
         if (null === $unresolved) {
-            $unresolved = new \ArrayObject();
+            $unresolved = new ArrayObject();
         }
         $nodeName = $node->getName();
         $unresolved[$nodeName] = $node;

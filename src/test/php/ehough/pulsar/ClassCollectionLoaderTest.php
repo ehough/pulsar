@@ -9,16 +9,16 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Component\ClassLoader\Tests;
+//namespace Symfony\Component\ClassLoader\Tests;
 
-use Symfony\Component\ClassLoader\ClassCollectionLoader;
+//use Symfony\Component\ClassLoader\ClassCollectionLoader;
 
-require_once __DIR__.'/Fixtures/ClassesWithParents/GInterface.php';
-require_once __DIR__.'/Fixtures/ClassesWithParents/CInterface.php';
-require_once __DIR__.'/Fixtures/ClassesWithParents/B.php';
-require_once __DIR__.'/Fixtures/ClassesWithParents/A.php';
+require_once __DIR__.'/../../../resources/Fixtures/ClassesWithParents/GInterface.php';
+require_once __DIR__.'/../../../resources/Fixtures/ClassesWithParents/CInterface.php';
+require_once __DIR__.'/../../../resources/Fixtures/ClassesWithParents/B.php';
+require_once __DIR__.'/../../../resources/Fixtures/ClassesWithParents/A.php';
 
-class ClassCollectionLoaderTest extends \PHPUnit_Framework_TestCase
+class ehough_pulsar_ClassCollectionLoaderTest extends \PHPUnit_Framework_TestCase
 {
     public function testTraitDependencies()
     {
@@ -28,20 +28,20 @@ class ClassCollectionLoaderTest extends \PHPUnit_Framework_TestCase
             return;
         }
 
-        require_once __DIR__.'/Fixtures/deps/traits.php';
+        require_once __DIR__.'/../../../resources/Fixtures/deps/traits.php';
 
-        $r = new \ReflectionClass('Symfony\Component\ClassLoader\ClassCollectionLoader');
+        $r = new \ReflectionClass('ehough_pulsar_ClassCollectionLoader');
         $m = $r->getMethod('getOrderedClasses');
         $m->setAccessible(true);
 
-        $ordered = $m->invoke('Symfony\Component\ClassLoader\ClassCollectionLoader', array('CTFoo'));
+        $ordered = $m->invoke('ehough_pulsar_ClassCollectionLoader', array('CTFoo'));
 
         $this->assertEquals(
             array('TD', 'TC', 'TB', 'TA', 'TZ', 'CTFoo'),
             array_map(function ($class) { return $class->getName(); }, $ordered)
         );
 
-        $ordered = $m->invoke('Symfony\Component\ClassLoader\ClassCollectionLoader', array('CTBar'));
+        $ordered = $m->invoke('ehough_pulsar_ClassCollectionLoader', array('CTBar'));
 
         $this->assertEquals(
             array('TD', 'TZ', 'TC', 'TB', 'TA', 'CTBar'),
@@ -61,11 +61,11 @@ class ClassCollectionLoaderTest extends \PHPUnit_Framework_TestCase
             'ClassesWithParents\\A',
         );
 
-        $r = new \ReflectionClass('Symfony\Component\ClassLoader\ClassCollectionLoader');
+        $r = new \ReflectionClass('ehough_pulsar_ClassCollectionLoader');
         $m = $r->getMethod('getOrderedClasses');
         $m->setAccessible(true);
 
-        $ordered = $m->invoke('Symfony\Component\ClassLoader\ClassCollectionLoader', $classes);
+        $ordered = $m->invoke('ehough_pulsar_ClassCollectionLoader', $classes);
 
         $this->assertEquals($expected, array_map(function ($class) { return $class->getName(); }, $ordered));
     }
@@ -106,11 +106,11 @@ class ClassCollectionLoaderTest extends \PHPUnit_Framework_TestCase
             return;
         }
 
-        require_once __DIR__.'/Fixtures/ClassesWithParents/ATrait.php';
-        require_once __DIR__.'/Fixtures/ClassesWithParents/BTrait.php';
-        require_once __DIR__.'/Fixtures/ClassesWithParents/CTrait.php';
-        require_once __DIR__.'/Fixtures/ClassesWithParents/D.php';
-        require_once __DIR__.'/Fixtures/ClassesWithParents/E.php';
+        require_once __DIR__.'/../../../resources/Fixtures/ClassesWithParents/ATrait.php';
+        require_once __DIR__.'/../../../resources/Fixtures/ClassesWithParents/BTrait.php';
+        require_once __DIR__.'/../../../resources/Fixtures/ClassesWithParents/CTrait.php';
+        require_once __DIR__.'/../../../resources/Fixtures/ClassesWithParents/D.php';
+        require_once __DIR__.'/../../../resources/Fixtures/ClassesWithParents/E.php';
 
         $expected = array(
             'ClassesWithParents\\GInterface',
@@ -124,11 +124,11 @@ class ClassCollectionLoaderTest extends \PHPUnit_Framework_TestCase
             'ClassesWithParents\\E',
         );
 
-        $r = new \ReflectionClass('Symfony\Component\ClassLoader\ClassCollectionLoader');
+        $r = new \ReflectionClass('ehough_pulsar_ClassCollectionLoader');
         $m = $r->getMethod('getOrderedClasses');
         $m->setAccessible(true);
 
-        $ordered = $m->invoke('Symfony\Component\ClassLoader\ClassCollectionLoader', $classes);
+        $ordered = $m->invoke('ehough_pulsar_ClassCollectionLoader', $classes);
 
         $this->assertEquals($expected, array_map(function ($class) { return $class->getName(); }, $ordered));
     }
@@ -151,7 +151,7 @@ class ClassCollectionLoaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testFixNamespaceDeclarations($source, $expected)
     {
-        $this->assertEquals('<?php '.$expected, ClassCollectionLoader::fixNamespaceDeclarations('<?php '.$source));
+        $this->assertEquals('<?php '.$expected, ehough_pulsar_ClassCollectionLoader::fixNamespaceDeclarations('<?php '.$source));
     }
 
     public function getFixNamespaceDeclarationsData()
@@ -171,9 +171,9 @@ class ClassCollectionLoaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testFixNamespaceDeclarationsWithoutTokenizer($source, $expected)
     {
-        ClassCollectionLoader::enableTokenizer(false);
-        $this->assertEquals('<?php '.$expected, ClassCollectionLoader::fixNamespaceDeclarations('<?php '.$source));
-        ClassCollectionLoader::enableTokenizer(true);
+        ehough_pulsar_ClassCollectionLoader::enableTokenizer(false);
+        $this->assertEquals('<?php '.$expected, ehough_pulsar_ClassCollectionLoader::fixNamespaceDeclarations('<?php '.$source));
+        ehough_pulsar_ClassCollectionLoader::enableTokenizer(true);
     }
 
     public function getFixNamespaceDeclarationsDataWithoutTokenizer()
@@ -197,7 +197,7 @@ class ClassCollectionLoaderTest extends \PHPUnit_Framework_TestCase
             unlink($file);
         }
 
-        ClassCollectionLoader::load(array('SomeNotExistingClass'), sys_get_temp_dir(), 'foo', false);
+        ehough_pulsar_ClassCollectionLoader::load(array('SomeNotExistingClass'), sys_get_temp_dir(), 'foo', false);
     }
 
     public function testCommentStripping()
@@ -206,10 +206,10 @@ class ClassCollectionLoaderTest extends \PHPUnit_Framework_TestCase
             unlink($file);
         }
         spl_autoload_register($r = function ($class) {
-            require_once __DIR__.'/Fixtures/'.str_replace(array('\\', '_'), '/', $class).'.php';
+            require_once __DIR__.'/../../../resources/Fixtures/'.str_replace(array('\\', '_'), '/', $class).'.php';
         });
 
-        ClassCollectionLoader::load(
+        ehough_pulsar_ClassCollectionLoader::load(
             array('Namespaced\\WithComments', 'Pearlike_WithComments'),
             sys_get_temp_dir(),
             'bar',
