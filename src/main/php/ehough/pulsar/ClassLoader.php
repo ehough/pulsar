@@ -12,11 +12,11 @@
 //namespace Symfony\Component\ClassLoader;
 
 /**
- * ClassLoader implements an PSR-0 class loader
+ * ehough_pulsar_ClassLoader implements an PSR-0 class loader
  *
  * See https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md
  *
- *     $loader = new ClassLoader();
+ *     $loader = new ehough_pulsar_ClassLoader();
  *
  *     // register classes with namespaces
  *     $loader->addPrefix('Symfony\Component', __DIR__.'/component');
@@ -196,7 +196,7 @@ class ehough_pulsar_ClassLoader
             }
         }
 
-        if ($this->useIncludePath && $file = stream_resolve_include_path($classPath)) {
+        if ($this->useIncludePath && function_exists('stream_resolve_include_path') && $file = stream_resolve_include_path($classPath)) {
             return $file;
         }
     }

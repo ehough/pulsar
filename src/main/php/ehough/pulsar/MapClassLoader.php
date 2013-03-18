@@ -9,14 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Component\ClassLoader;
+//namespace Symfony\Component\ClassLoader;
 
 /**
  * A class loader that uses a mapping file to look up paths.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class MapClassLoader
+class ehough_pulsar_MapClassLoader
 {
     private $map = array();
 
@@ -37,7 +37,16 @@ class MapClassLoader
      */
     public function register($prepend = false)
     {
-        spl_autoload_register(array($this, 'loadClass'), true, $prepend);
+        // We need a special call to the autoloader for PHP 5.2, missing the
+        // third parameter.
+        if (version_compare(PHP_VERSION, '5.3.0', '<')) {
+
+            spl_autoload_register(array($this, 'loadClass'), true);
+
+        } else {
+
+            spl_autoload_register(array($this, 'loadClass'), true, $prepend);
+        }
     }
 
     /**

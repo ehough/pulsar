@@ -12,20 +12,20 @@
 //namespace Symfony\Component\ClassLoader;
 
 /**
- * ApcClassLoader implements a wrapping autoloader cached in APC for PHP 5.3.
+ * ehough_pulsar_ApcClassLoader implements a wrapping autoloader cached in APC for PHP 5.1.3+.
  *
  * It expects an object implementing a findFile method to find the file. This
  * allow using it as a wrapper around the other loaders of the component (the
  * ClassLoader and the UniversalClassLoader for instance) but also around any
  * other autoloader following this convention (the Composer one for instance)
  *
- *     $loader = new ClassLoader();
+ *     $loader = new ehough_pulsar_ClassLoader();
  *
  *     // register classes with namespaces
  *     $loader->add('Symfony\Component', __DIR__.'/component');
  *     $loader->add('Symfony',           __DIR__.'/framework');
  *
- *     $cachedLoader = new ApcClassLoader('my_prefix', $loader);
+ *     $cachedLoader = new ehough_pulsar_ApcClassLoader('my_prefix', $loader);
  *
  *     // activate the cached autoloader
  *     $cachedLoader->register();
@@ -46,7 +46,7 @@ class ehough_pulsar_ApcClassLoader
     /**
      * The class loader object being decorated.
      *
-     * @var \Symfony\Component\ClassLoader\ClassLoader
+     * @var ehough_pulsar_ClassLoader
      *   A class loader object that implements the findFile() method.
      */
     protected $decorated;
@@ -83,7 +83,16 @@ class ehough_pulsar_ApcClassLoader
      */
     public function register($prepend = false)
     {
-        spl_autoload_register(array($this, 'loadClass'), true, $prepend);
+        // We need a special call to the autoloader for PHP 5.2, missing the
+        // third parameter.
+        if (version_compare(PHP_VERSION, '5.3.0', '<')) {
+
+            spl_autoload_register(array($this, 'loadClass'), true);
+
+        } else {
+
+            spl_autoload_register(array($this, 'loadClass'), true, $prepend);
+        }
     }
 
     /**

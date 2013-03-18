@@ -9,14 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Component\ClassLoader;
+//namespace Symfony\Component\ClassLoader;
 
 /**
  * Checks that the class is actually declared in the included file.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class DebugUniversalClassLoader extends UniversalClassLoader
+class ehough_pulsar_DebugUniversalClassLoader extends ehough_pulsar_UniversalClassLoader
 {
     /**
      * Replaces all regular UniversalClassLoader instances by a DebugUniversalClassLoader ones.
@@ -32,7 +32,7 @@ class DebugUniversalClassLoader extends UniversalClassLoader
         }
 
         foreach ($functions as $function) {
-            if (is_array($function) && $function[0] instanceof UniversalClassLoader) {
+            if (is_array($function) && $function[0] instanceof ehough_pulsar_UniversalClassLoader) {
                 $loader = new static();
                 $loader->registerNamespaceFallbacks($function[0]->getNamespaceFallbacks());
                 $loader->registerPrefixFallbacks($function[0]->getPrefixFallbacks());
@@ -56,7 +56,7 @@ class DebugUniversalClassLoader extends UniversalClassLoader
             require $file;
 
             if (!class_exists($class, false) && !interface_exists($class, false) && (!function_exists('trait_exists') || !trait_exists($class, false))) {
-                throw new \RuntimeException(sprintf('The autoloader expected class "%s" to be defined in file "%s". The file was found but the class was not in it, the class name or namespace probably has a typo.', $class, $file));
+                throw new RuntimeException(sprintf('The autoloader expected class "%s" to be defined in file "%s". The file was found but the class was not in it, the class name or namespace probably has a typo.', $class, $file));
             }
         }
     }

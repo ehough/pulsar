@@ -42,16 +42,20 @@
  * THE SOFTWARE.
  */
 
-class_exists('ehough_pulsar_SymfonyUniversalClassLoader') || require 'SymfonyUniversalClassLoader.php';
+class_exists('ehough_pulsar_UniversalClassLoader') || require 'UniversalClassLoader.php';
 
 /**
  * Performs some Composer-specific classloading functionality.
  */
-class ehough_pulsar_ComposerClassLoader extends ehough_pulsar_SymfonyUniversalClassLoader
+class ehough_pulsar_ComposerClassLoader extends ehough_pulsar_UniversalClassLoader
 {
     private $_vendorDir;
 
     private $_classMap = array();
+
+    private $_apcAvailable = false;
+
+    private $_xcacheAvailable = false;
 
     /**
      * Constructor.
@@ -69,7 +73,9 @@ class ehough_pulsar_ComposerClassLoader extends ehough_pulsar_SymfonyUniversalCl
             );
         }
 
-        $this->_vendorDir = $vendorDir;
+        $this->_vendorDir       = $vendorDir;
+        $this->_apcAvailable    = extension_loaded('apc');
+        $this->_xcacheAvailable = extension_loaded('Xcache');
     }
 
     /**
@@ -101,24 +107,72 @@ class ehough_pulsar_ComposerClassLoader extends ehough_pulsar_SymfonyUniversalCl
      *
      * @return null|string Null if the class can't be found, otherwise the absolute path of the file.
      */
-    protected final function findFileDefiningClass($class)
+    public function findFile($class)
     {
         if (isset($this->_classMap[$class])) {
 
             return $this->_classMap[$class];
         }
 
-        return null;
+        if ($this->_apcAvailable || $this->_xcacheAvailable) {
+
+            $cacheKey = 'ehough.pulsar.composerclassloader.' . $class;
+
+            if ($this->_apcAvailable) {
+
+                return $this->_apcFindFile($cacheKey, $class);
+
+            } else if ($this->_xcacheAvailable) {
+
+                return $this->_xcacheFindFile($cacheKey, $class);
+            }
+        }
+
+        return parent::findFile($class);
+    }
+
+    private function _xcacheFindFile($key, $class)
+    {
+        if (xcache_isset($key)) {
+
+            return xcache_get($key);
+
+        } else {
+
+            $file = parent::findFile($class);
+
+            xcache_set($key, $file);
+
+            return $file;
+        }
+    }
+
+    private function _apcFindFile($key, $class)
+    {
+        $file = apc_fetch($key);
+
+        if ($file === false) {
+
+            $file = parent::findFile($class);
+
+            apc_store($key, $file);
+        }
+
+        return $file;
     }
 
     /**
-     * Hook for actions to perform immediately before this classloader is registered with PHP.
+     * Registers this instance as an autoloader.
      *
-     * @return void
+     * @param Boolean $prepend Whether to prepend the autoloader or not
+     *
+     * @api
      */
-    protected final function onBeforeRegister()
+    public function register($prepend = false)
     {
         $this->_performComposerAutoload();
+
+        parent::register($prepend);
     }
 
     /**
@@ -142,11 +196,13 @@ class ehough_pulsar_ComposerClassLoader extends ehough_pulsar_SymfonyUniversalCl
 
             if ($nameSpace) {
 
-                $this->registerDirectory($nameSpace, $path);
+                $this->registerNamespace($nameSpace, $path);
+                $this->registerPrefix($nameSpace, $path);
 
             } else {
 
-                $this->registerFallbackDirectory($path);
+                $this->registerNamespaceFallback($path);
+                $this->registerPrefixFallback($path);
             }
         }
 

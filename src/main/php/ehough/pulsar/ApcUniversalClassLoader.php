@@ -12,7 +12,7 @@
 //namespace Symfony\Component\ClassLoader;
 
 /**
- * ApcUniversalClassLoader implements a "universal" autoloader cached in APC for PHP 5.3.
+ * ehough_pulsar_ApcUniversalClassLoader implements a "universal" autoloader cached in APC for PHP 5.3.
  *
  * It is able to load classes that use either:
  *
@@ -27,12 +27,10 @@
  *
  * Example usage:
  *
- *     require 'vendor/symfony/src/Symfony/Component/ClassLoader/UniversalClassLoader.php';
- *     require 'vendor/symfony/src/Symfony/Component/ClassLoader/ApcUniversalClassLoader.php';
+ *     require 'vendor/ehough/pulsar/src/main/php/ehough/pulsar/UniversalClassLoader.php';
+ *     require 'vendor/ehough/pulsar/src/main/php/ehough/pulsar/ApcUniversalClassLoader.php';
  *
- *     use Symfony\Component\ClassLoader\ApcUniversalClassLoader;
- *
- *     $loader = new ApcUniversalClassLoader('apc.prefix.');
+ *     $loader = new ehough_pulsar_ApcUniversalClassLoader('apc.prefix.');
  *
  *     // register classes with namespaces
  *     $loader->registerNamespaces(array(

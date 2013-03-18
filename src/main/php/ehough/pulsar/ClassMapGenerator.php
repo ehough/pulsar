@@ -12,7 +12,7 @@
 //namespace Symfony\Component\ClassLoader;
 
 /**
- * ClassMapGenerator
+ * ehough_pulsar_ClassMapGenerator
  *
  * @author Gyula Sallai <salla016@gmail.com>
  */

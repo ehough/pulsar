@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Component\ClassLoader;
+//namespace Symfony\Component\ClassLoader;
 
 /**
  * XcacheClassLoader implements a wrapping autoloader cached in Xcache for PHP 5.3.
@@ -19,13 +19,13 @@ namespace Symfony\Component\ClassLoader;
  * ClassLoader and the UniversalClassLoader for instance) but also around any
  * other autoloader following this convention (the Composer one for instance)
  *
- *     $loader = new ClassLoader();
+ *     $loader = new ehough_pulsar_ClassLoader();
  *
  *     // register classes with namespaces
  *     $loader->add('Symfony\Component', __DIR__.'/component');
  *     $loader->add('Symfony',           __DIR__.'/framework');
  *
- *     $cachedLoader = new XcacheClassLoader('my_prefix', $loader);
+ *     $cachedLoader = new ehough_pulsar_XcacheClassLoader('my_prefix', $loader);
  *
  *     // activate the cached autoloader
  *     $cachedLoader->register();
@@ -40,7 +40,7 @@ namespace Symfony\Component\ClassLoader;
  *
  * @api
  */
-class XcacheClassLoader
+class ehough_pulsar_XcacheClassLoader
 {
     private $prefix;
     private $classFinder;
@@ -59,11 +59,11 @@ class XcacheClassLoader
     public function __construct($prefix, $classFinder)
     {
         if (!extension_loaded('Xcache')) {
-            throw new \RuntimeException('Unable to use XcacheClassLoader as Xcache is not enabled.');
+            throw new RuntimeException('Unable to use XcacheClassLoader as Xcache is not enabled.');
         }
 
         if (!method_exists($classFinder, 'findFile')) {
-            throw new \InvalidArgumentException('The class finder must implement a "findFile" method.');
+            throw new InvalidArgumentException('The class finder must implement a "findFile" method.');
         }
 
         $this->prefix = $prefix;
@@ -77,7 +77,16 @@ class XcacheClassLoader
      */
     public function register($prepend = false)
     {
-        spl_autoload_register(array($this, 'loadClass'), true, $prepend);
+        // We need a special call to the autoloader for PHP 5.2, missing the
+        // third parameter.
+        if (version_compare(PHP_VERSION, '5.3.0', '<')) {
+
+            spl_autoload_register(array($this, 'loadClass'), true);
+
+        } else {
+
+            spl_autoload_register(array($this, 'loadClass'), true, $prepend);
+        }
     }
 
     /**

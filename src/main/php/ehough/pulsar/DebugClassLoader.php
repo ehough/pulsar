@@ -9,12 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Component\ClassLoader;
+//namespace Symfony\Component\ClassLoader;
 
 /**
  * Autoloader checking if the class is really defined in the file found.
  *
- * The DebugClassLoader will wrap all registered autoloaders providing a
+ * The ehough_pulsar_DebugClassLoader will wrap all registered autoloaders providing a
  * findFile method and will throw an exception if a file is found but does
  * not declare the class.
  *
@@ -23,7 +23,7 @@ namespace Symfony\Component\ClassLoader;
  *
  * @api
  */
-class DebugClassLoader
+class ehough_pulsar_DebugClassLoader
 {
     private $classFinder;
 

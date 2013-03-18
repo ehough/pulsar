@@ -27,7 +27,7 @@
  *
  * Example usage:
  *
- *     $loader = new UniversalClassLoader();
+ *     $loader = new ehough_pulsar_UniversalClassLoader();
  *
  *     // register classes with namespaces
  *     $loader->registerNamespaces(array(
@@ -235,7 +235,16 @@ class ehough_pulsar_UniversalClassLoader
      */
     public function register($prepend = false)
     {
-        spl_autoload_register(array($this, 'loadClass'), true, $prepend);
+        // We need a special call to the autoloader for PHP 5.2, missing the
+        // third parameter.
+        if (version_compare(PHP_VERSION, '5.3.0', '<')) {
+
+            spl_autoload_register(array($this, 'loadClass'), true);
+
+        } else {
+
+            spl_autoload_register(array($this, 'loadClass'), true, $prepend);
+        }
     }
 
     /**

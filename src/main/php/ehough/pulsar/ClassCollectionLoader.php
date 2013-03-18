@@ -155,7 +155,7 @@ class ehough_pulsar_ClassCollectionLoader
             } elseif (in_array($token[0], array(T_COMMENT, T_DOC_COMMENT))) {
                 // strip comments
                 continue;
-            } elseif (T_NAMESPACE === $token[0]) {
+            } elseif (defined('T_NAMESPACE') && T_NAMESPACE === $token[0]) {
                 if ($inNamespace) {
                     $rawChunk .= "}\n";
                 }
