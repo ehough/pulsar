@@ -9,14 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Component\ClassLoader;
+//namespace Symfony\Component\ClassLoader;
 
 /**
  * ClassMapGenerator
  *
  * @author Gyula Sallai <salla016@gmail.com>
  */
-class ClassMapGenerator
+class ehough_pulsar_ClassMapGenerator
 {
     /**
      * Generate a class map file

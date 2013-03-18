@@ -10,7 +10,7 @@
             "name": "Eric D. Hough",
             "email": "eric@ehough.com",
             "homepage": "http://ehough.com"
-        },
+        }
     ],
     "require": {
         "php": ">=5.1.3"
