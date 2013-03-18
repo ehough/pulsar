@@ -1,4 +1,4 @@
-/vendor
-target
-.idea
+vendor/
 composer.lock
+phpunit.xml
+.idea
