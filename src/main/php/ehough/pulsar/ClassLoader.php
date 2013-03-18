@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Component\ClassLoader;
+//namespace Symfony\Component\ClassLoader;
 
 /**
  * ClassLoader implements an PSR-0 class loader
@@ -37,7 +37,7 @@ namespace Symfony\Component\ClassLoader;
  * @author Fabien Potencier <fabien@symfony.com>
  * @author Jordi Boggiano <j.boggiano@seld.be>
  */
-class ClassLoader
+class ehough_pulsar_ClassLoader
 {
     private $prefixes = array();
     private $fallbackDirs = array();
