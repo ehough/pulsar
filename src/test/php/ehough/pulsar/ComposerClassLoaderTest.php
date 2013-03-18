@@ -53,6 +53,6 @@ class ehough_pulsar_ComposerClassLoaderTest extends PHPUnit_Framework_TestCase {
 
     private function _getFakeVendorDir()
     {
-        return realpath(__DIR__ . '/../../../resources/fixtures/vendor');
+        return realpath(__DIR__ . '/../../../resources/Fixtures/vendor');
     }
 }
