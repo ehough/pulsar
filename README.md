@@ -1,5 +1,4 @@
-pulsar [![Build Status](https://secure.travis-ci.org/ehough/pulsar.png)](http://travis-ci.org/ehough/pulsar)
-======
+# pulsar [![Build Status](https://secure.travis-ci.org/ehough/pulsar.png)](http://travis-ci.org/ehough/pulsar)
 
 Intelligent classloaders PHP 5. This library is a fork of [Symfony's ClassLoader component](https://github.com/symfony/ClassLoader),
 the primary difference being that `pulsar` is compatible with PHP 5.1.3 and above.
@@ -12,4 +11,6 @@ the primary difference being that `pulsar` is compatible with PHP 5.1.3 and abov
 
 Simple to create and use:
 
-    $classLoader = new ehough_pulsar_ComposerClassloader('/path/to/your/vendor/directory');
+```php
+$classLoader = new ehough_pulsar_ComposerClassloader('/path/to/your/vendor/directory');
+```
