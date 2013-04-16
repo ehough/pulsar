@@ -9,8 +9,6 @@
  * file that was distributed with this source code.
  */
 
-//namespace Symfony\Component\ClassLoader;
-
 /**
  * A class loader that uses a mapping file to look up paths.
  *

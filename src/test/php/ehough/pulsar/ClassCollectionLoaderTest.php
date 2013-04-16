@@ -9,16 +9,12 @@
  * file that was distributed with this source code.
  */
 
-//namespace Symfony\Component\ClassLoader\Tests;
+require_once dirname(__FILE__).'/../../../resources/Fixtures/ClassesWithParents/GInterface.php';
+require_once dirname(__FILE__).'/../../../resources/Fixtures/ClassesWithParents/CInterface.php';
+require_once dirname(__FILE__).'/../../../resources/Fixtures/ClassesWithParents/B.php';
+require_once dirname(__FILE__).'/../../../resources/Fixtures/ClassesWithParents/A.php';
 
-//use Symfony\Component\ClassLoader\ClassCollectionLoader;
-
-require_once __DIR__.'/../../../resources/Fixtures/ClassesWithParents/GInterface.php';
-require_once __DIR__.'/../../../resources/Fixtures/ClassesWithParents/CInterface.php';
-require_once __DIR__.'/../../../resources/Fixtures/ClassesWithParents/B.php';
-require_once __DIR__.'/../../../resources/Fixtures/ClassesWithParents/A.php';
-
-class ehough_pulsar_ClassCollectionLoaderTest extends \PHPUnit_Framework_TestCase
+class ehough_pulsar_ClassCollectionLoaderTest extends PHPUnit_Framework_TestCase
 {
     public function testTraitDependencies()
     {
@@ -28,7 +24,7 @@ class ehough_pulsar_ClassCollectionLoaderTest extends \PHPUnit_Framework_TestCas
             return;
         }
 
-        require_once __DIR__.'/../../../resources/Fixtures/deps/traits.php';
+        require_once dirname(__FILE__).'/../../../resources/Fixtures/deps/traits.php';
 
         $r = new \ReflectionClass('ehough_pulsar_ClassCollectionLoader');
         $m = $r->getMethod('getOrderedClasses');
@@ -106,11 +102,11 @@ class ehough_pulsar_ClassCollectionLoaderTest extends \PHPUnit_Framework_TestCas
             return;
         }
 
-        require_once __DIR__.'/../../../resources/Fixtures/ClassesWithParents/ATrait.php';
-        require_once __DIR__.'/../../../resources/Fixtures/ClassesWithParents/BTrait.php';
-        require_once __DIR__.'/../../../resources/Fixtures/ClassesWithParents/CTrait.php';
-        require_once __DIR__.'/../../../resources/Fixtures/ClassesWithParents/D.php';
-        require_once __DIR__.'/../../../resources/Fixtures/ClassesWithParents/E.php';
+        require_once dirname(__FILE__).'/../../../resources/Fixtures/ClassesWithParents/ATrait.php';
+        require_once dirname(__FILE__).'/../../../resources/Fixtures/ClassesWithParents/BTrait.php';
+        require_once dirname(__FILE__).'/../../../resources/Fixtures/ClassesWithParents/CTrait.php';
+        require_once dirname(__FILE__).'/../../../resources/Fixtures/ClassesWithParents/D.php';
+        require_once dirname(__FILE__).'/../../../resources/Fixtures/ClassesWithParents/E.php';
 
         $expected = array(
             'ClassesWithParents\\GInterface',
@@ -207,7 +203,7 @@ class ehough_pulsar_ClassCollectionLoaderTest extends \PHPUnit_Framework_TestCas
         }
         spl_autoload_register($r = function ($class) {
             if (0 === strpos($class, 'Namespaced') || 0 === strpos($class, 'Pearlike_')) {
-                require_once __DIR__.'/../../../resources/Fixtures/'.str_replace(array('\\', '_'), '/', $class).'.php';
+                require_once dirname(__FILE__).'/../../../resources/Fixtures/'.str_replace(array('\\', '_'), '/', $class).'.php';
             }
         });
 

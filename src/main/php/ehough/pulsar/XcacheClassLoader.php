@@ -9,8 +9,6 @@
  * file that was distributed with this source code.
  */
 
-//namespace Symfony\Component\ClassLoader;
-
 /**
  * XcacheClassLoader implements a wrapping autoloader cached in Xcache for PHP 5.3.
  *

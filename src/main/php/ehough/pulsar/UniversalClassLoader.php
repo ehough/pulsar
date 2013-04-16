@@ -9,8 +9,6 @@
  * file that was distributed with this source code.
  */
 
-//namespace Symfony\Component\ClassLoader;
-
 /**
  * UniversalClassLoader implements a "universal" autoloader for PHP 5.3.
  *

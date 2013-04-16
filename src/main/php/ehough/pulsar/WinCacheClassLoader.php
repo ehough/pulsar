@@ -10,20 +10,20 @@
  */
 
 /**
- * ehough_pulsar_ApcClassLoader implements a wrapping autoloader cached in APC for PHP 5.1.3+.
+ * WinCacheClassLoader implements a wrapping autoloader cached in WinCache.
  *
  * It expects an object implementing a findFile method to find the file. This
  * allow using it as a wrapper around the other loaders of the component (the
  * ClassLoader and the UniversalClassLoader for instance) but also around any
  * other autoloader following this convention (the Composer one for instance)
  *
- *     $loader = new ehough_pulsar_ClassLoader();
+ *     $loader = new ClassLoader();
  *
  *     // register classes with namespaces
  *     $loader->add('Symfony\Component', __DIR__.'/component');
  *     $loader->add('Symfony',           __DIR__.'/framework');
  *
- *     $cachedLoader = new ehough_pulsar_ApcClassLoader('my_prefix', $loader);
+ *     $cachedLoader = new WinCacheClassLoader('my_prefix', $loader);
  *
  *     // activate the cached autoloader
  *     $cachedLoader->register();
@@ -34,10 +34,9 @@
  *
  * @author Fabien Potencier <fabien@symfony.com>
  * @author Kris Wallsmith <kris@symfony.com>
- *
- * @api
+ * @author Artem Ryzhkov <artem@smart-core.org>
  */
-class ehough_pulsar_ApcClassLoader
+class ehough_pulsar_WinCacheClassLoader
 {
     private $prefix;
 
@@ -52,18 +51,16 @@ class ehough_pulsar_ApcClassLoader
     /**
      * Constructor.
      *
-     * @param string $prefix      The APC namespace prefix to use.
+     * @param string $prefix      The WinCache namespace prefix to use.
      * @param object $decorated   A class loader object that implements the findFile() method.
      *
      * @throws RuntimeException
      * @throws InvalidArgumentException
-     *
-     * @api
      */
     public function __construct($prefix, $decorated)
     {
-        if (!extension_loaded('apc')) {
-            throw new RuntimeException('Unable to use ApcClassLoader as APC is not enabled.');
+        if (!extension_loaded('wincache')) {
+            throw new RuntimeException('Unable to use WinCacheClassLoader as WinCache is not enabled.');
         }
 
         if (!method_exists($decorated, 'findFile')) {
@@ -81,16 +78,7 @@ class ehough_pulsar_ApcClassLoader
      */
     public function register($prepend = false)
     {
-        // We need a special call to the autoloader for PHP 5.2, missing the
-        // third parameter.
-        if (version_compare(PHP_VERSION, '5.3.0', '<')) {
-
-            spl_autoload_register(array($this, 'loadClass'), true);
-
-        } else {
-
-            spl_autoload_register(array($this, 'loadClass'), true, $prepend);
-        }
+        spl_autoload_register(array($this, 'loadClass'), true, $prepend);
     }
 
     /**
@@ -118,7 +106,7 @@ class ehough_pulsar_ApcClassLoader
     }
 
     /**
-     * Finds a file by class name while caching lookups to APC.
+     * Finds a file by class name while caching lookups to WinCache.
      *
      * @param string $class A class name to resolve to file
      *
@@ -126,8 +114,8 @@ class ehough_pulsar_ApcClassLoader
      */
     public function findFile($class)
     {
-        if (false === $file = apc_fetch($this->prefix.$class)) {
-            apc_store($this->prefix.$class, $file = $this->decorated->findFile($class));
+        if (false === $file = wincache_ucache_get($this->prefix.$class)) {
+            wincache_ucache_set($this->prefix.$class, $file = $this->decorated->findFile($class), 0);
         }
 
         return $file;
@@ -140,5 +128,4 @@ class ehough_pulsar_ApcClassLoader
     {
         return call_user_func_array(array($this->decorated, $method), $args);
     }
-
 }

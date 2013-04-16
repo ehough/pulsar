@@ -53,10 +53,6 @@ class ehough_pulsar_ComposerClassLoader extends ehough_pulsar_UniversalClassLoad
 
     private $_classMap = array();
 
-    private $_apcAvailable = false;
-
-    private $_xcacheAvailable = false;
-
     /**
      * Constructor.
      *
@@ -73,9 +69,7 @@ class ehough_pulsar_ComposerClassLoader extends ehough_pulsar_UniversalClassLoad
             );
         }
 
-        $this->_vendorDir       = $vendorDir;
-        $this->_apcAvailable    = extension_loaded('apc');
-        $this->_xcacheAvailable = extension_loaded('Xcache');
+        $this->_vendorDir = $vendorDir;
     }
 
     /**
@@ -114,51 +108,7 @@ class ehough_pulsar_ComposerClassLoader extends ehough_pulsar_UniversalClassLoad
             return $this->_classMap[$class];
         }
 
-        if ($this->_apcAvailable || $this->_xcacheAvailable) {
-
-            $cacheKey = 'ehough.pulsar.composerclassloader.' . $class;
-
-            if ($this->_apcAvailable) {
-
-                return $this->_apcFindFile($cacheKey, $class);
-
-            } else if ($this->_xcacheAvailable) {
-
-                return $this->_xcacheFindFile($cacheKey, $class);
-            }
-        }
-
         return parent::findFile($class);
-    }
-
-    private function _xcacheFindFile($key, $class)
-    {
-        if (xcache_isset($key)) {
-
-            return xcache_get($key);
-
-        } else {
-
-            $file = parent::findFile($class);
-
-            xcache_set($key, $file);
-
-            return $file;
-        }
-    }
-
-    private function _apcFindFile($key, $class)
-    {
-        $file = apc_fetch($key);
-
-        if ($file === false) {
-
-            $file = parent::findFile($class);
-
-            apc_store($key, $file);
-        }
-
-        return $file;
     }
 
     /**

@@ -9,8 +9,6 @@
  * file that was distributed with this source code.
  */
 
-//namespace Symfony\Component\ClassLoader;
-
 /**
  * Checks that the class is actually declared in the included file.
  *
