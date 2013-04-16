@@ -9,8 +9,6 @@
  * file that was distributed with this source code.
  */
 
-//namespace Symfony\Component\ClassLoader;
-
 /**
  * ehough_pulsar_ApcClassLoader implements a wrapping autoloader cached in APC for PHP 5.1.3+.
  *

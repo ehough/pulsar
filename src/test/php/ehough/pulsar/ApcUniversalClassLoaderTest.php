@@ -9,10 +9,6 @@
  * file that was distributed with this source code.
  */
 
-//namespace Symfony\Component\ClassLoader\Tests;
-
-//use Symfony\Component\ClassLoader\ApcUniversalClassLoader;
-
 class ehough_pulsar_ApcUniversalClassLoaderTest extends PHPUnit_Framework_TestCase
 {
     protected function setUp()

@@ -9,10 +9,6 @@
  * file that was distributed with this source code.
  */
 
-//namespace Symfony\Component\ClassLoader\Tests;
-
-//use Symfony\Component\ClassLoader\ClassCollectionLoader;
-
 require_once dirname(__FILE__).'/../../../resources/Fixtures/ClassesWithParents/GInterface.php';
 require_once dirname(__FILE__).'/../../../resources/Fixtures/ClassesWithParents/CInterface.php';
 require_once dirname(__FILE__).'/../../../resources/Fixtures/ClassesWithParents/B.php';

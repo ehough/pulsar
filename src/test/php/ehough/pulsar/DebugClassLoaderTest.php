@@ -9,11 +9,6 @@
  * file that was distributed with this source code.
  */
 
-//namespace Symfony\Component\ClassLoader\Tests;
-
-//use Symfony\Component\ClassLoader\ClassLoader;
-//use Symfony\Component\ClassLoader\DebugClassLoader;
-
 class ehough_pulsar_DebugClassLoaderTest extends PHPUnit_Framework_TestCase
 {
     private $loader;

@@ -9,8 +9,6 @@
  * file that was distributed with this source code.
  */
 
-//namespace Symfony\Component\ClassLoader;
-
 /**
  * WinCacheClassLoader implements a wrapping autoloader cached in WinCache.
  *

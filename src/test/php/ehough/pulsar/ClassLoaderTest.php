@@ -9,10 +9,6 @@
  * file that was distributed with this source code.
  */
 
-//namespace Symfony\Component\ClassLoader\Tests;
-
-//use Symfony\Component\ClassLoader\ClassLoader;
-
 class ehough_pulsar_ClassLoaderTest extends PHPUnit_Framework_TestCase
 {
     public function testGetPrefixes()
