@@ -13,7 +13,7 @@
 
 //use Symfony\Component\ClassLoader\ClassMapGenerator;
 
-class ehough_pulsar_ClassMapGeneratorTest extends \PHPUnit_Framework_TestCase
+class ehough_pulsar_ClassMapGeneratorTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @var string $workspace
@@ -71,47 +71,47 @@ class ehough_pulsar_ClassMapGeneratorTest extends \PHPUnit_Framework_TestCase
     public function getTestCreateMapTests()
     {
         $data = array(
-            array(__DIR__.'/../../../resources/Fixtures/Namespaced', array(
-                'Namespaced\\Bar'          => realpath(__DIR__.'/../../../resources/Fixtures/Namespaced/Bar.php'),
-                'Namespaced\\Foo'          => realpath(__DIR__.'/../../../resources/Fixtures/Namespaced/Foo.php'),
-                'Namespaced\\Baz'          => realpath(__DIR__.'/../../../resources/Fixtures/Namespaced/Baz.php'),
-                'Namespaced\\WithComments' => realpath(__DIR__.'/../../../resources/Fixtures/Namespaced/WithComments.php'),
+            array(dirname(__FILE__).'/../../../resources/Fixtures/Namespaced', array(
+                'Namespaced\\Bar'          => realpath(dirname(__FILE__).'/../../../resources/Fixtures/Namespaced/Bar.php'),
+                'Namespaced\\Foo'          => realpath(dirname(__FILE__).'/../../../resources/Fixtures/Namespaced/Foo.php'),
+                'Namespaced\\Baz'          => realpath(dirname(__FILE__).'/../../../resources/Fixtures/Namespaced/Baz.php'),
+                'Namespaced\\WithComments' => realpath(dirname(__FILE__).'/../../../resources/Fixtures/Namespaced/WithComments.php'),
                 )
             ),
-            array(__DIR__.'/../../../resources/Fixtures/beta/NamespaceCollision', array(
-                'NamespaceCollision\\A\\B\\Bar' => realpath(__DIR__.'/../../../resources/Fixtures/beta/NamespaceCollision/A/B/Bar.php'),
-                'NamespaceCollision\\A\\B\\Foo' => realpath(__DIR__.'/../../../resources/Fixtures/beta/NamespaceCollision/A/B/Foo.php'),
-                'NamespaceCollision\\C\\B\\Bar' => realpath(__DIR__.'/../../../resources/Fixtures/beta/NamespaceCollision/C/B/Bar.php'),
-                'NamespaceCollision\\C\\B\\Foo' => realpath(__DIR__.'/../../../resources/Fixtures/beta/NamespaceCollision/C/B/Foo.php'),
+            array(dirname(__FILE__).'/../../../resources/Fixtures/beta/NamespaceCollision', array(
+                'NamespaceCollision\\A\\B\\Bar' => realpath(dirname(__FILE__).'/../../../resources/Fixtures/beta/NamespaceCollision/A/B/Bar.php'),
+                'NamespaceCollision\\A\\B\\Foo' => realpath(dirname(__FILE__).'/../../../resources/Fixtures/beta/NamespaceCollision/A/B/Foo.php'),
+                'NamespaceCollision\\C\\B\\Bar' => realpath(dirname(__FILE__).'/../../../resources/Fixtures/beta/NamespaceCollision/C/B/Bar.php'),
+                'NamespaceCollision\\C\\B\\Foo' => realpath(dirname(__FILE__).'/../../../resources/Fixtures/beta/NamespaceCollision/C/B/Foo.php'),
             )),
-            array(__DIR__.'/../../../resources/Fixtures/Pearlike', array(
-                'Pearlike_Foo'          => realpath(__DIR__.'/../../../resources/Fixtures/Pearlike/Foo.php'),
-                'Pearlike_Bar'          => realpath(__DIR__.'/../../../resources/Fixtures/Pearlike/Bar.php'),
-                'Pearlike_Baz'          => realpath(__DIR__.'/../../../resources/Fixtures/Pearlike/Baz.php'),
-                'Pearlike_WithComments' => realpath(__DIR__.'/../../../resources/Fixtures/Pearlike/WithComments.php'),
+            array(dirname(__FILE__).'/../../../resources/Fixtures/Pearlike', array(
+                'Pearlike_Foo'          => realpath(dirname(__FILE__).'/../../../resources/Fixtures/Pearlike/Foo.php'),
+                'Pearlike_Bar'          => realpath(dirname(__FILE__).'/../../../resources/Fixtures/Pearlike/Bar.php'),
+                'Pearlike_Baz'          => realpath(dirname(__FILE__).'/../../../resources/Fixtures/Pearlike/Baz.php'),
+                'Pearlike_WithComments' => realpath(dirname(__FILE__).'/../../../resources/Fixtures/Pearlike/WithComments.php'),
             )),
-            array(__DIR__.'/../../../resources/Fixtures/classmap', array(
-                'Foo\\Bar\\A'             => realpath(__DIR__.'/../../../resources/Fixtures/classmap/sameNsMultipleClasses.php'),
-                'Foo\\Bar\\B'             => realpath(__DIR__.'/../../../resources/Fixtures/classmap/sameNsMultipleClasses.php'),
-                'A'                       => realpath(__DIR__.'/../../../resources/Fixtures/classmap/multipleNs.php'),
-                'Alpha\\A'                => realpath(__DIR__.'/../../../resources/Fixtures/classmap/multipleNs.php'),
-                'Alpha\\B'                => realpath(__DIR__.'/../../../resources/Fixtures/classmap/multipleNs.php'),
-                'Beta\\A'                 => realpath(__DIR__.'/../../../resources/Fixtures/classmap/multipleNs.php'),
-                'Beta\\B'                 => realpath(__DIR__.'/../../../resources/Fixtures/classmap/multipleNs.php'),
-                'ClassMap\\SomeInterface' => realpath(__DIR__.'/../../../resources/Fixtures/classmap/SomeInterface.php'),
-                'ClassMap\\SomeParent'    => realpath(__DIR__.'/../../../resources/Fixtures/classmap/SomeParent.php'),
-                'ClassMap\\SomeClass'     => realpath(__DIR__.'/../../../resources/Fixtures/classmap/SomeClass.php'),
+            array(dirname(__FILE__).'/../../../resources/Fixtures/classmap', array(
+                'Foo\\Bar\\A'             => realpath(dirname(__FILE__).'/../../../resources/Fixtures/classmap/sameNsMultipleClasses.php'),
+                'Foo\\Bar\\B'             => realpath(dirname(__FILE__).'/../../../resources/Fixtures/classmap/sameNsMultipleClasses.php'),
+                'A'                       => realpath(dirname(__FILE__).'/../../../resources/Fixtures/classmap/multipleNs.php'),
+                'Alpha\\A'                => realpath(dirname(__FILE__).'/../../../resources/Fixtures/classmap/multipleNs.php'),
+                'Alpha\\B'                => realpath(dirname(__FILE__).'/../../../resources/Fixtures/classmap/multipleNs.php'),
+                'Beta\\A'                 => realpath(dirname(__FILE__).'/../../../resources/Fixtures/classmap/multipleNs.php'),
+                'Beta\\B'                 => realpath(dirname(__FILE__).'/../../../resources/Fixtures/classmap/multipleNs.php'),
+                'ClassMap\\SomeInterface' => realpath(dirname(__FILE__).'/../../../resources/Fixtures/classmap/SomeInterface.php'),
+                'ClassMap\\SomeParent'    => realpath(dirname(__FILE__).'/../../../resources/Fixtures/classmap/SomeParent.php'),
+                'ClassMap\\SomeClass'     => realpath(dirname(__FILE__).'/../../../resources/Fixtures/classmap/SomeClass.php'),
             )),
         );
 
         if (version_compare(PHP_VERSION, '5.4', '>=')) {
-            $data[] = array(__DIR__.'/../../../resources/Fixtures/php5.4', array(
-                'TFoo' => realpath(__DIR__.'/../../../resources/Fixtures/php5.4/traits.php'),
-                'CFoo' => realpath(__DIR__.'/../../../resources/Fixtures/php5.4/traits.php'),
-                'Foo\\TBar' => realpath(__DIR__.'/../../../resources/Fixtures/php5.4/traits.php'),
-                'Foo\\IBar' => realpath(__DIR__.'/../../../resources/Fixtures/php5.4/traits.php'),
-                'Foo\\TFooBar' => realpath(__DIR__.'/../../../resources/Fixtures/php5.4/traits.php'),
-                'Foo\\CBar' => realpath(__DIR__.'/../../../resources/Fixtures/php5.4/traits.php'),
+            $data[] = array(dirname(__FILE__).'/../../../resources/Fixtures/php5.4', array(
+                'TFoo' => realpath(dirname(__FILE__).'/../../../resources/Fixtures/php5.4/traits.php'),
+                'CFoo' => realpath(dirname(__FILE__).'/../../../resources/Fixtures/php5.4/traits.php'),
+                'Foo\\TBar' => realpath(dirname(__FILE__).'/../../../resources/Fixtures/php5.4/traits.php'),
+                'Foo\\IBar' => realpath(dirname(__FILE__).'/../../../resources/Fixtures/php5.4/traits.php'),
+                'Foo\\TFooBar' => realpath(dirname(__FILE__).'/../../../resources/Fixtures/php5.4/traits.php'),
+                'Foo\\CBar' => realpath(dirname(__FILE__).'/../../../resources/Fixtures/php5.4/traits.php'),
             ));
         }
 
@@ -125,13 +125,13 @@ class ehough_pulsar_ClassMapGeneratorTest extends \PHPUnit_Framework_TestCase
         }
 
         $finder = new \Symfony\Component\Finder\Finder();
-        $finder->files()->in(__DIR__ . '/../../../resources/Fixtures/beta/NamespaceCollision');
+        $finder->files()->in(dirname(__FILE__) . '/../../../resources/Fixtures/beta/NamespaceCollision');
 
         $this->assertEqualsNormalized(array(
-            'NamespaceCollision\\A\\B\\Bar' => realpath(__DIR__.'/../../../resources/Fixtures/beta/NamespaceCollision/A/B/Bar.php'),
-            'NamespaceCollision\\A\\B\\Foo' => realpath(__DIR__.'/../../../resources/Fixtures/beta/NamespaceCollision/A/B/Foo.php'),
-            'NamespaceCollision\\C\\B\\Bar' => realpath(__DIR__.'/../../../resources/Fixtures/beta/NamespaceCollision/C/B/Bar.php'),
-            'NamespaceCollision\\C\\B\\Foo' => realpath(__DIR__.'/../../../resources/Fixtures/beta/NamespaceCollision/C/B/Foo.php'),
+            'NamespaceCollision\\A\\B\\Bar' => realpath(dirname(__FILE__).'/../../../resources/Fixtures/beta/NamespaceCollision/A/B/Bar.php'),
+            'NamespaceCollision\\A\\B\\Foo' => realpath(dirname(__FILE__).'/../../../resources/Fixtures/beta/NamespaceCollision/A/B/Foo.php'),
+            'NamespaceCollision\\C\\B\\Bar' => realpath(dirname(__FILE__).'/../../../resources/Fixtures/beta/NamespaceCollision/C/B/Bar.php'),
+            'NamespaceCollision\\C\\B\\Foo' => realpath(dirname(__FILE__).'/../../../resources/Fixtures/beta/NamespaceCollision/C/B/Foo.php'),
         ), ehough_pulsar_ClassMapGenerator::createMap($finder));
     }
 
