@@ -96,7 +96,7 @@ class ehough_pulsar_ClassLoaderTest extends PHPUnit_Framework_TestCase
         $loader->setUseIncludePath(true);
         $this->assertTrue($loader->getUseIncludePath());
 
-        set_include_path(realpath(dirname(__FILE__).'/../../../resources/Fixtures/includepath') . PATH_SEPARATOR . $includePath);
+        set_include_path(realpath(dirname(__FILE__).'/../../../resources/Fixtures/includepath').PATH_SEPARATOR .$includePath);
 
         $this->assertEquals(realpath(dirname(__FILE__).DIRECTORY_SEPARATOR.'../../../resources/Fixtures'.DIRECTORY_SEPARATOR.'includepath').DIRECTORY_SEPARATOR.'Foo.php', $loader->findFile('Foo'));
 
