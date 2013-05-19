@@ -54,10 +54,6 @@ class ehough_pulsar_MapClassLoader
      */
     public function loadClass($class)
     {
-        if ('\\' === $class[0]) {
-            $class = substr($class, 1);
-        }
-
         if (isset($this->map[$class])) {
             require $this->map[$class];
         }
@@ -72,10 +68,6 @@ class ehough_pulsar_MapClassLoader
      */
     public function findFile($class)
     {
-        if ('\\' === $class[0]) {
-            $class = substr($class, 1);
-        }
-
         if (isset($this->map[$class])) {
             return $this->map[$class];
         }
