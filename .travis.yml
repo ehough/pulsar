@@ -6,7 +6,7 @@ php:
   - 5.5
 before_script:
   - "mkdir -p ~/.composer"
-  - cp src/test/resources/travis-ci/travis-composer-config.json ~/.composer/config.json
+  - cp src/test/resources/travis-composer-config.json ~/.composer/config.json
   - wget https://raw.github.com/ehough/throwback/develop/src/main/bash/travis-setup.sh
   - chmod a+x travis-setup.sh
   - ./travis-setup.sh
