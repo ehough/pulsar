@@ -119,7 +119,7 @@ class ehough_pulsar_ClassMapGenerator
                         }
                     }
 
-                    $classes[] = ltrim($namespace . $class, '\\');
+                    $classes[] = ltrim($namespace.$class, '\\');
                     break;
                 default:
                     break;

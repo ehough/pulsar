@@ -28,8 +28,6 @@ class ehough_pulsar_UniversalClassLoaderTest extends PHPUnit_Framework_TestCase
         return array(
             array('\\Namespaced\\Foo', 'Namespaced\\Foo',   '->loadClass() loads Namespaced\Foo class'),
             array('\\Pearlike_Foo',    'Pearlike_Foo',      '->loadClass() loads Pearlike_Foo class'),
-            array('\\Namespaced\\Bar', '\\Namespaced\\Bar', '->loadClass() loads Namespaced\Bar class with a leading slash'),
-            array('\\Pearlike_Bar',    '\\Pearlike_Bar',    '->loadClass() loads Pearlike_Bar class with a leading slash'),
         );
     }
 
@@ -45,7 +43,7 @@ class ehough_pulsar_UniversalClassLoaderTest extends PHPUnit_Framework_TestCase
         $loader->useIncludePath(true);
         $this->assertTrue($loader->getUseIncludePath());
 
-        set_include_path(realpath(dirname(__FILE__).'/../../../resources/Fixtures/includepath') . PATH_SEPARATOR . $includePath);
+        set_include_path(realpath(dirname(__FILE__).'/../../../resources/Fixtures/includepath').PATH_SEPARATOR.$includePath);
 
         $this->assertEquals(realpath(dirname(__FILE__).DIRECTORY_SEPARATOR.'../../../resources/Fixtures').DIRECTORY_SEPARATOR.'includepath'.DIRECTORY_SEPARATOR.'Foo.php', $loader->findFile('Foo'));
 

@@ -41,6 +41,6 @@ class ehough_pulsar_DebugClassLoaderTest extends PHPUnit_Framework_TestCase
             }
         }
 
-        throw new \Exception('DebugClassLoader did not register');
+        throw new Exception('DebugClassLoader did not register');
     }
 }
