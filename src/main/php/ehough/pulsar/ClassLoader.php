@@ -175,7 +175,7 @@ class ehough_pulsar_ClassLoader
         $classPath .= str_replace('_', DIRECTORY_SEPARATOR, $className).'.php';
 
         foreach ($this->prefixes as $prefix => $dirs) {
-            if (0 === strpos($class, $prefix)) {
+            if ($class === strstr($class, $prefix)) {
                 foreach ($dirs as $dir) {
                     if (file_exists($dir.DIRECTORY_SEPARATOR.$classPath)) {
                         return $dir.DIRECTORY_SEPARATOR.$classPath;
