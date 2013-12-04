@@ -51,7 +51,7 @@ class ehough_pulsar_ClassCollectionLoader
             $classes = array_diff($classes, $declared);
 
             // the cache is different depending on which classes are already declared
-            $name = $name.'-'.substr(md5(implode('|', $classes)), 0, 5);
+            $name = $name.'-'.substr(hash('sha256', implode('|', $classes)), 0, 5);
         }
 
         $classes = array_unique($classes);
