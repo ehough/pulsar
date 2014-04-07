@@ -123,7 +123,8 @@ class ehough_pulsar_XcacheClassLoader
         if (xcache_isset($this->prefix.$class)) {
             $file = xcache_get($this->prefix.$class);
         } else {
-            xcache_set($this->prefix.$class, $file = $this->classFinder->findFile($class));
+            $file = $this->classFinder->findFile($class);
+            xcache_set($this->prefix.$class, $file);
         }
 
         return $file;
