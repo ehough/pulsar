@@ -46,7 +46,7 @@ class ehough_pulsar_DebugUniversalClassLoader extends ehough_pulsar_UniversalCla
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function loadClass($class)
     {

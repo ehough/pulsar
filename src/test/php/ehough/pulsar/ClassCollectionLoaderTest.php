@@ -9,13 +9,24 @@
  * file that was distributed with this source code.
  */
 
-require_once dirname(__FILE__).'/../../../resources/Fixtures/ClassesWithParents/GInterface.php';
-require_once dirname(__FILE__).'/../../../resources/Fixtures/ClassesWithParents/CInterface.php';
-require_once dirname(__FILE__).'/../../../resources/Fixtures/ClassesWithParents/B.php';
-require_once dirname(__FILE__).'/../../../resources/Fixtures/ClassesWithParents/A.php';
+if (version_compare(phpversion(), '5.3') >= 0) {
+    require_once dirname(__FILE__).'/../../../resources/Fixtures/ClassesWithParents/GInterface.php';
+    require_once dirname(__FILE__).'/../../../resources/Fixtures/ClassesWithParents/CInterface.php';
+    require_once dirname(__FILE__).'/../../../resources/Fixtures/ClassesWithParents/B.php';
+    require_once dirname(__FILE__).'/../../../resources/Fixtures/ClassesWithParents/A.php';
+}
 
 class ehough_pulsar_ClassCollectionLoaderTest extends PHPUnit_Framework_TestCase
 {
+    public function setup()
+    {
+        if (version_compare(phpversion(), '5.3', '<')) {
+            $this->markTestSkipped('Requires PHP > 5.3');
+
+            return;
+        }
+    }
+
     public function testTraitDependencies()
     {
         if (version_compare(phpversion(), '5.4', '<')) {
@@ -26,7 +37,7 @@ class ehough_pulsar_ClassCollectionLoaderTest extends PHPUnit_Framework_TestCase
 
         require_once dirname(__FILE__).'/../../../resources/Fixtures/deps/traits.php';
 
-        $r = new \ReflectionClass('ehough_pulsar_ClassCollectionLoader');
+        $r = new ReflectionClass('ehough_pulsar_ClassCollectionLoader');
         $m = $r->getMethod('getOrderedClasses');
         $m->setAccessible(true);
 
@@ -34,14 +45,14 @@ class ehough_pulsar_ClassCollectionLoaderTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals(
             array('TD', 'TC', 'TB', 'TA', 'TZ', 'CTFoo'),
-            array_map(function ($class) { return $class->getName(); }, $ordered)
+            array_map(array($this, '__callbackGetClassName'), $ordered)
         );
 
         $ordered = $m->invoke('ehough_pulsar_ClassCollectionLoader', array('CTBar'));
 
         $this->assertEquals(
             array('TD', 'TZ', 'TC', 'TB', 'TA', 'CTBar'),
-            array_map(function ($class) { return $class->getName(); }, $ordered)
+            array_map(array($this, '__callbackGetClassName'), $ordered)
         );
     }
 
@@ -50,6 +61,12 @@ class ehough_pulsar_ClassCollectionLoaderTest extends PHPUnit_Framework_TestCase
      */
     public function testClassReordering(array $classes)
     {
+        if (version_compare(phpversion(), '5.3', '<')) {
+            $this->markTestSkipped('Requires PHP > 5.3');
+
+            return;
+        }
+
         $expected = array(
             'ClassesWithParents\\GInterface',
             'ClassesWithParents\\CInterface',
@@ -57,13 +74,18 @@ class ehough_pulsar_ClassCollectionLoaderTest extends PHPUnit_Framework_TestCase
             'ClassesWithParents\\A',
         );
 
-        $r = new \ReflectionClass('ehough_pulsar_ClassCollectionLoader');
+        $r = new ReflectionClass('ehough_pulsar_ClassCollectionLoader');
         $m = $r->getMethod('getOrderedClasses');
         $m->setAccessible(true);
 
         $ordered = $m->invoke('ehough_pulsar_ClassCollectionLoader', $classes);
 
-        $this->assertEquals($expected, array_map(function ($class) { return $class->getName(); }, $ordered));
+        $this->assertEquals($expected, array_map(array($this, '__callbackGetClassName'), $ordered));
+    }
+
+    public function __callbackGetClassName($class)
+    {
+        return $class->getName();
     }
 
     public function getDifferentOrders()
@@ -120,13 +142,13 @@ class ehough_pulsar_ClassCollectionLoaderTest extends PHPUnit_Framework_TestCase
             'ClassesWithParents\\E',
         );
 
-        $r = new \ReflectionClass('ehough_pulsar_ClassCollectionLoader');
+        $r = new ReflectionClass('ehough_pulsar_ClassCollectionLoader');
         $m = $r->getMethod('getOrderedClasses');
         $m->setAccessible(true);
 
         $ordered = $m->invoke('ehough_pulsar_ClassCollectionLoader', $classes);
 
-        $this->assertEquals($expected, array_map(function ($class) { return $class->getName(); }, $ordered));
+        $this->assertEquals($expected, array_map(array($this, '__callbackGetClassName'), $ordered));
     }
 
     public function getDifferentOrdersForTraits()
@@ -201,11 +223,7 @@ class ehough_pulsar_ClassCollectionLoaderTest extends PHPUnit_Framework_TestCase
         if (is_file($file = sys_get_temp_dir().'/bar.php')) {
             unlink($file);
         }
-        spl_autoload_register($r = function ($class) {
-            if (0 === strpos($class, 'Namespaced') || 0 === strpos($class, 'Pearlike_')) {
-                require_once dirname(__FILE__).'/../../../resources/Fixtures/'.str_replace(array('\\', '_'), '/', $class).'.php';
-            }
-        });
+        spl_autoload_register($r = array($this, '__callback_testCommentStripping'));
 
         ehough_pulsar_ClassCollectionLoader::load(
             array('Namespaced\\WithComments', 'Pearlike_WithComments'),
@@ -252,5 +270,12 @@ EOF
         , str_replace("<?php \n", '', file_get_contents($file)));
 
         unlink($file);
+    }
+
+    public function __callback_testCommentStripping($class)
+    {
+        if (0 === strpos($class, 'Namespaced') || 0 === strpos($class, 'Pearlike_')) {
+            require_once dirname(__FILE__).'/../../../resources/Fixtures/'.str_replace(array('\\', '_'), '/', $class).'.php';
+        }
     }
 }
