@@ -18,6 +18,15 @@ if (version_compare(phpversion(), '5.3') >= 0) {
 
 class ehough_pulsar_ClassCollectionLoaderTest extends PHPUnit_Framework_TestCase
 {
+    public function setup()
+    {
+        if (version_compare(phpversion(), '5.3', '<')) {
+            $this->markTestSkipped('Requires PHP > 5.3');
+
+            return;
+        }
+    }
+
     public function testTraitDependencies()
     {
         if (version_compare(phpversion(), '5.4', '<')) {
