@@ -101,7 +101,7 @@ class ehough_pulsar_ClassLoader
     /**
      * Turns on searching the include for class files.
      *
-     * @param Boolean $useIncludePath
+     * @param bool    $useIncludePath
      */
     public function setUseIncludePath($useIncludePath)
     {
@@ -112,7 +112,7 @@ class ehough_pulsar_ClassLoader
      * Can be used to check if the autoloader uses the include path to check
      * for classes.
      *
-     * @return Boolean
+     * @return bool
      */
     public function getUseIncludePath()
     {
@@ -122,7 +122,7 @@ class ehough_pulsar_ClassLoader
     /**
      * Registers this instance as an autoloader.
      *
-     * @param Boolean $prepend Whether to prepend the autoloader or not
+     * @param bool    $prepend Whether to prepend the autoloader or not
      */
     public function register($prepend = false)
     {
@@ -142,7 +142,7 @@ class ehough_pulsar_ClassLoader
      *
      * @param string $class The name of the class
      *
-     * @return Boolean|null True, if loaded
+     * @return bool|null    True, if loaded
      */
     public function loadClass($class)
     {
