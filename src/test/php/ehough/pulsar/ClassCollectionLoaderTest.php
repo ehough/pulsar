@@ -26,7 +26,7 @@ class ehough_pulsar_ClassCollectionLoaderTest extends PHPUnit_Framework_TestCase
 
         require_once dirname(__FILE__).'/../../../resources/Fixtures/deps/traits.php';
 
-        $r = new \ReflectionClass('ehough_pulsar_ClassCollectionLoader');
+        $r = new ReflectionClass('ehough_pulsar_ClassCollectionLoader');
         $m = $r->getMethod('getOrderedClasses');
         $m->setAccessible(true);
 
@@ -50,6 +50,12 @@ class ehough_pulsar_ClassCollectionLoaderTest extends PHPUnit_Framework_TestCase
      */
     public function testClassReordering(array $classes)
     {
+        if (version_compare(phpversion(), '5.3', '<')) {
+            $this->markTestSkipped('Requires PHP > 5.3');
+
+            return;
+        }
+
         $expected = array(
             'ClassesWithParents\\GInterface',
             'ClassesWithParents\\CInterface',
@@ -57,7 +63,7 @@ class ehough_pulsar_ClassCollectionLoaderTest extends PHPUnit_Framework_TestCase
             'ClassesWithParents\\A',
         );
 
-        $r = new \ReflectionClass('ehough_pulsar_ClassCollectionLoader');
+        $r = new ReflectionClass('ehough_pulsar_ClassCollectionLoader');
         $m = $r->getMethod('getOrderedClasses');
         $m->setAccessible(true);
 
