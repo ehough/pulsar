@@ -16,6 +16,14 @@ class ehough_pulsar_ClassMapGeneratorTest extends PHPUnit_Framework_TestCase
      */
     private $workspace = null;
 
+    public function setup()
+    {
+        if (version_compare(PHP_VERSION, '5.3') < 0) {
+
+            $this->markTestSkipped('PHP 5.2');
+        }
+    }
+
     public function prepare_workspace()
     {
         $this->workspace = rtrim(sys_get_temp_dir(), DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR.time().rand(0, 1000);
@@ -29,7 +37,7 @@ class ehough_pulsar_ClassMapGeneratorTest extends PHPUnit_Framework_TestCase
     private function clean($file)
     {
         if (is_dir($file) && !is_link($file)) {
-            $dir = new \FilesystemIterator($file);
+            $dir = new FilesystemIterator($file);
             foreach ($dir as $childFile) {
                 $this->clean($childFile);
             }
@@ -120,7 +128,8 @@ class ehough_pulsar_ClassMapGeneratorTest extends PHPUnit_Framework_TestCase
             $this->markTestSkipped('Finder component is not available');
         }
 
-        $finder = new \Symfony\Component\Finder\Finder();
+        $ref = new ReflectionClass('Symfony\\Component\\Finder\\Finder');
+        $finder = $ref->newInstance();
         $finder->files()->in(dirname(__FILE__) . '/../../../resources/Fixtures/beta/NamespaceCollision');
 
         $this->assertEqualsNormalized(array(
