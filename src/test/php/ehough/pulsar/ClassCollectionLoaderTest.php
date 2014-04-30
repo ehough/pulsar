@@ -9,10 +9,12 @@
  * file that was distributed with this source code.
  */
 
-require_once dirname(__FILE__).'/../../../resources/Fixtures/ClassesWithParents/GInterface.php';
-require_once dirname(__FILE__).'/../../../resources/Fixtures/ClassesWithParents/CInterface.php';
-require_once dirname(__FILE__).'/../../../resources/Fixtures/ClassesWithParents/B.php';
-require_once dirname(__FILE__).'/../../../resources/Fixtures/ClassesWithParents/A.php';
+if (version_compare(phpversion(), '5.3') >= 0) {
+    require_once dirname(__FILE__).'/../../../resources/Fixtures/ClassesWithParents/GInterface.php';
+    require_once dirname(__FILE__).'/../../../resources/Fixtures/ClassesWithParents/CInterface.php';
+    require_once dirname(__FILE__).'/../../../resources/Fixtures/ClassesWithParents/B.php';
+    require_once dirname(__FILE__).'/../../../resources/Fixtures/ClassesWithParents/A.php';
+}
 
 class ehough_pulsar_ClassCollectionLoaderTest extends PHPUnit_Framework_TestCase
 {
@@ -131,7 +133,7 @@ class ehough_pulsar_ClassCollectionLoaderTest extends PHPUnit_Framework_TestCase
             'ClassesWithParents\\E',
         );
 
-        $r = new \ReflectionClass('ehough_pulsar_ClassCollectionLoader');
+        $r = new ReflectionClass('ehough_pulsar_ClassCollectionLoader');
         $m = $r->getMethod('getOrderedClasses');
         $m->setAccessible(true);
 
