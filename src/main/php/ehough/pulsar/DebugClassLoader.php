@@ -96,7 +96,7 @@ class ehough_pulsar_DebugClassLoader
      *
      * @param string $class The name of the class
      *
-     * @return bool|null    True, if loaded
+     * @return bool|null True, if loaded
      *
      * @throws \RuntimeException
      */

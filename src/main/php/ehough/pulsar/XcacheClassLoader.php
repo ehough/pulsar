@@ -50,8 +50,8 @@ class ehough_pulsar_XcacheClassLoader
     /**
      * Constructor.
      *
-     * @param string $prefix      The XCache namespace prefix to use.
-     * @param object $decorated   A class loader object that implements the findFile() method.
+     * @param string $prefix    The XCache namespace prefix to use.
+     * @param object $decorated A class loader object that implements the findFile() method.
      *
      * @throws RuntimeException
      * @throws InvalidArgumentException
@@ -75,7 +75,7 @@ class ehough_pulsar_XcacheClassLoader
     /**
      * Registers this instance as an autoloader.
      *
-     * @param bool    $prepend Whether to prepend the autoloader or not
+     * @param bool $prepend Whether to prepend the autoloader or not
      */
     public function register($prepend = false)
     {
@@ -104,7 +104,7 @@ class ehough_pulsar_XcacheClassLoader
      *
      * @param string $class The name of the class
      *
-     * @return bool|null    True, if loaded
+     * @return bool|null True, if loaded
      */
     public function loadClass($class)
     {
