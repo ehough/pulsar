@@ -9,6 +9,10 @@
  * file that was distributed with this source code.
  */
 
+if (!defined('T_TRAIT')) {
+    define('T_TRAIT', 0);
+}
+
 /**
  * ehough_pulsar_ClassMapGenerator
  *
@@ -82,7 +86,6 @@ class ehough_pulsar_ClassMapGenerator
     {
         $contents = file_get_contents($path);
         $tokens   = token_get_all($contents);
-        $T_TRAIT  = version_compare(PHP_VERSION, '5.4', '<') ? -1 : T_TRAIT;
 
         $classes = array();
 
@@ -109,7 +112,7 @@ class ehough_pulsar_ClassMapGenerator
                     break;
                 case T_CLASS:
                 case T_INTERFACE:
-                case $T_TRAIT:
+                case T_TRAIT:
                     // Find the classname
                     while (($t = $tokens[++$i]) && is_array($t)) {
                         if (T_STRING === $t[0]) {
