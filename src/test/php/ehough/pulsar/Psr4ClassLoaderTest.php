@@ -32,7 +32,7 @@ class ehough_pulsar_Psr4ClassLoaderTest extends PHPUnit_Framework_TestCase
         $loader = new ehough_pulsar_Psr4ClassLoader();
         $loader->addPrefix(
             'Acme\\DemoLib',
-            $this->_fixturesDirectory . DIRECTORY_SEPARATOR . 'psr-4'
+            $this->_fixturesDirectory.DIRECTORY_SEPARATOR.'psr-4'
         );
         $loader->loadClass($className);
         $this->assertTrue(class_exists($className), sprintf('loadClass() should load %s', $className));
@@ -47,7 +47,7 @@ class ehough_pulsar_Psr4ClassLoaderTest extends PHPUnit_Framework_TestCase
             array('Acme\\DemoLib\\Foo'),
             array('Acme\\DemoLib\\Class_With_Underscores'),
             array('Acme\\DemoLib\\Lets\\Go\\Deeper\\Foo'),
-            array('Acme\\DemoLib\\Lets\\Go\\Deeper\\Class_With_Underscores')
+            array('Acme\\DemoLib\\Lets\\Go\\Deeper\\Class_With_Underscores'),
         );
     }
 
@@ -60,7 +60,7 @@ class ehough_pulsar_Psr4ClassLoaderTest extends PHPUnit_Framework_TestCase
         $loader = new ehough_pulsar_Psr4ClassLoader();
         $loader->addPrefix(
             'Acme\\DemoLib',
-            $this->_fixturesDirectory . DIRECTORY_SEPARATOR . 'psr-4'
+            $this->_fixturesDirectory.DIRECTORY_SEPARATOR.'psr-4'
         );
         $loader->loadClass($className);
         $this->assertFalse(class_exists($className), sprintf('loadClass() should not load %s', $className));
@@ -73,7 +73,7 @@ class ehough_pulsar_Psr4ClassLoaderTest extends PHPUnit_Framework_TestCase
     {
         return array(
             array('Acme\\DemoLib\\I_Do_Not_Exist'),
-            array('UnknownVendor\\SomeLib\\I_Do_Not_Exist')
+            array('UnknownVendor\\SomeLib\\I_Do_Not_Exist'),
         );
     }
 }

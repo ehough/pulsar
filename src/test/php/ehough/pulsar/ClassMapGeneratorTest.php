@@ -80,7 +80,7 @@ class ehough_pulsar_ClassMapGeneratorTest extends PHPUnit_Framework_TestCase
                 'Namespaced\\Foo'          => realpath(dirname(__FILE__).'/../../../resources/Fixtures/Namespaced/Foo.php'),
                 'Namespaced\\Baz'          => realpath(dirname(__FILE__).'/../../../resources/Fixtures/Namespaced/Baz.php'),
                 'Namespaced\\WithComments' => realpath(dirname(__FILE__).'/../../../resources/Fixtures/Namespaced/WithComments.php'),
-                )
+                ),
             ),
             array(dirname(__FILE__).'/../../../resources/Fixtures/beta/NamespaceCollision', array(
                 'NamespaceCollision\\A\\B\\Bar' => realpath(dirname(__FILE__).'/../../../resources/Fixtures/beta/NamespaceCollision/A/B/Bar.php'),
