@@ -13,7 +13,7 @@ Fork of [Symfony's ClassLoader component](https://github.com/symfony/ClassLoader
 but it's only compatible with PHP 5.3+. While 99% of PHP servers run PHP 5.2 or higher,
 12% of all servers are still running PHP 5.2 or lower ([source](http://w3techs.com/technologies/details/pl-php/5/all)).
 
-**Version 2.8.0 will likely be the last release of this library** since PHP 5.2 levels are finally falling below 10%.
+**Version 2.8.1 will likely be the last release of this library** since PHP 5.2 levels are finally falling below 10%.
 
 ### Differences from [Symfony's ClassLoader component](https://github.com/symfony/ClassLoader)
 
