@@ -13,7 +13,7 @@
  * ehough_pulsar_ApcClassLoader implements a wrapping autoloader cached in APC for PHP 5.1.3+.
  *
  * It expects an object implementing a findFile method to find the file. This
- * allow using it as a wrapper around the other loaders of the component (the
+ * allows using it as a wrapper around the other loaders of the component (the
  * ClassLoader and the UniversalClassLoader for instance) but also around any
  * other autoloader following this convention (the Composer one for instance)
  *
@@ -44,7 +44,7 @@ class ehough_pulsar_ApcClassLoader
     /**
      * The class loader object being decorated.
      *
-     * @var ehough_pulsar_ClassLoader
+     * @var object
      *   A class loader object that implements the findFile() method.
      */
     protected $decorated;
@@ -140,5 +140,4 @@ class ehough_pulsar_ApcClassLoader
     {
         return call_user_func_array(array($this->decorated, $method), $args);
     }
-
 }
