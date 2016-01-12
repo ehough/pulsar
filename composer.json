@@ -7,9 +7,17 @@
     "license": "MIT",
     "authors": [
         {
-            "name": "Eric D. Hough",
-            "email": "eric@ehough.com",
-            "homepage": "http://ehough.com"
+            "name": "Eric Hough",
+            "email": "eric@tubepress.com",
+            "homepage": "https://github.com/ehough"
+        },
+        {
+            "name": "Fabien Potencier",
+            "email": "fabien@symfony.com"
+        },
+        {
+            "name": "Symfony Community",
+            "homepage": "https://symfony.com/contributors"
         }
     ],
     "require": {

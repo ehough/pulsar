@@ -1,15 +1,19 @@
-# pulsar [![Build Status](https://secure.travis-ci.org/ehough/pulsar.png)](http://travis-ci.org/ehough/pulsar)
+## pulsar
+
+[![Build Status](https://secure.travis-ci.org/ehough/pulsar.png)](http://travis-ci.org/ehough/pulsar)
+[![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
+[![Latest Stable Version](https://poser.pugx.org/ehough/pulsar/v/stable)](https://packagist.org/packages/ehough/pulsar)
+[![License](https://poser.pugx.org/ehough/pulsar/license)](https://packagist.org/packages/ehough/pulsar)
 
 Fork of [Symfony's ClassLoader component](https://github.com/symfony/ClassLoader) compatible with PHP 5.2+.
 
 ### Motivation
 
 [Symfony's ClassLoader component](https://github.com/symfony/ClassLoader) is a fantastic classloading library,
-but it's only compatible with PHP 5.3+. While 97% of PHP servers run PHP 5.2 or higher,
-**32% of all servers are still running PHP 5.2 or lower** ([source](http://w3techs.com/technologies/details/pl-php/5/all)).
-It would be a shame to exempt this library from nearly half of the world's servers just because of a few version incompatibilities.
+but it's only compatible with PHP 5.3+. While 99% of PHP servers run PHP 5.2 or higher,
+12% of all servers are still running PHP 5.2 or lower ([source](http://w3techs.com/technologies/details/pl-php/5/all)).
 
-Once PHP 5.3+ adoption levels near closer to 100%, this library will be retired.
+**Version 2.8.0 will likely be the last release of this library** since PHP 5.2 levels are finally falling below 10%.
 
 ### Differences from [Symfony's ClassLoader component](https://github.com/symfony/ClassLoader)
 
