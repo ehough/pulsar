@@ -30,7 +30,7 @@ class ehough_pulsar_Psr4ClassLoader
     public function addPrefix($prefix, $baseDir)
     {
         $prefix = trim($prefix, '\\').'\\';
-        $baseDir = rtrim($baseDir, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
+        $baseDir = rtrim($baseDir, DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR;
         $this->prefixes[] = array($prefix, $baseDir);
     }
 
@@ -47,7 +47,7 @@ class ehough_pulsar_Psr4ClassLoader
             list($currentPrefix, $currentBaseDir) = $current;
             if (0 === strpos($class, $currentPrefix)) {
                 $classWithoutPrefix = substr($class, strlen($currentPrefix));
-                $file = $currentBaseDir . str_replace('\\', DIRECTORY_SEPARATOR, $classWithoutPrefix) . '.php';
+                $file = $currentBaseDir.str_replace('\\', DIRECTORY_SEPARATOR, $classWithoutPrefix).'.php';
                 if (file_exists($file)) {
                     return $file;
                 }

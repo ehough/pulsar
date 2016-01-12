@@ -69,7 +69,6 @@ class ehough_pulsar_ClassMapGenerator
             foreach ($classes as $class) {
                 $map[$class] = $path;
             }
-
         }
 
         return $map;
