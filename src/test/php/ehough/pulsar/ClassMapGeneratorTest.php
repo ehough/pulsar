@@ -108,7 +108,7 @@ class ehough_pulsar_ClassMapGeneratorTest extends PHPUnit_Framework_TestCase
             )),
         );
 
-        if (version_compare(PHP_VERSION, '5.4', '>=')) {
+        if (PHP_VERSION_ID >= 50400) {
             $data[] = array(dirname(__FILE__).'/../../../resources/Fixtures/php5.4', array(
                 'TFoo' => realpath(dirname(__FILE__).'/../../../resources/Fixtures/php5.4/traits.php'),
                 'CFoo' => realpath(dirname(__FILE__).'/../../../resources/Fixtures/php5.4/traits.php'),

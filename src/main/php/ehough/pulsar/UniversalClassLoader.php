@@ -30,8 +30,8 @@
  *     // register classes with namespaces
  *     $loader->registerNamespaces(array(
  *         'Symfony\Component' => __DIR__.'/component',
- *         'Symfony'           => __DIR__.'/framework',
- *         'Sensio'            => array(__DIR__.'/src', __DIR__.'/vendor'),
+ *         'Symfony' => __DIR__.'/framework',
+ *         'Sensio' => array(__DIR__.'/src', __DIR__.'/vendor'),
  *     ));
  *
  *     // register a library using the PEAR naming convention
@@ -72,7 +72,7 @@ class ehough_pulsar_UniversalClassLoader
      */
     public function useIncludePath($useIncludePath)
     {
-        $this->useIncludePath = $useIncludePath;
+        $this->useIncludePath = (bool) $useIncludePath;
     }
 
     /**
